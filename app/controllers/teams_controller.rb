@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
 	end
 
 	def code
-		@title = "Team Code"
+		@title = "My Team"
 		unless current_user.team
 			redirect_to root_path
 		end
