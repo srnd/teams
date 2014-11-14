@@ -1,0 +1,6 @@
+<h1><%= @user.name %> (<%= @user.username %>)</h1>
+<% if @user.team %>
+	Team: <%= link_to @user.team.name, @user.team %>
+<% else %>
+	Team: (none)
+<% end %>

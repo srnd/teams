@@ -1,0 +1,191 @@
+// Fonts
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+$regular-font: "Open Sans";
+$haxor-font: "Helvetica", "Open Sans";
+
+// Stealing StudentRND's color palette from the CodeDay website
+$studentrnd-blue: #0343FA;
+$codeday-red: #DD5D5C;
+$codeday-blue: #83BAC6;
+$codeday-orange: #F9A448;
+$codeday-purple: #C3B7D6;
+$codeday-green: #A0D388;
+$codeday-lightgreen: #B5E59C;
+$codeday-link: #42c2d2;
+$codeday-link-hover: #12A2C2;
+$codeday-link-gray: #666; // ITS THE DEVIL
+$codeday-link-nav: #111;
+$codeday-link-nav-hover: #FB481C;
+$page-background: #f7efef;
+
+$section-border-color: #efdede;
+
+$content-width: 1024px;
+$navbar-width: $content-width + 100px;
+
+$page-margin: 20px;
+
+@mixin text-background($color, $shadow){
+    @if $shadow{
+        text-shadow: 0px 0px 5px $codeday-blue;
+    }@else{
+        text-shadow: none;
+    }
+    background: $color;
+    color: #fff;
+}
+
+*{
+    font-family: $regular-font;
+}
+
+body{
+    // get rid of nasty margins
+    margin: 0;
+    background: $page-background;
+}
+
+.content{
+    width: $content-width;
+    margin: 0 auto;
+    margin-top: $page-margin;
+}
+
+header{
+    width: $content-width;
+    margin: 0 auto;
+    margin-top: $page-margin + 5px;
+    padding-bottom: $page-margin;
+    border-bottom: 1px solid $section-border-color;
+
+    &:after{
+        content: "";
+        clear: both;
+        display: block;
+        width: 0;
+        height: 0;
+    }
+
+    nav{
+        padding-left: 3rem;
+        display: block;
+        padding-top: 0.3rem;
+
+        nav-right{
+            float: right;
+        }
+
+        a{
+            border-bottom: none;
+            &:not(:last-of-type)::after{
+                content: "\2022";
+                color: #efdede;
+                padding: 0 0.5rem;
+            }
+        }
+    }
+
+    codeday-logo{
+        float: left;
+        text-indent: -19999px;
+        width: 2rem;
+        height: 2rem;
+        background-image: url(http://clear.codeday.org/assets/img/logo-square.png);
+        background-size: contain;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+
+    a{
+        @extend .impact;
+        text-decoration: none;
+        color: $codeday-link-nav;
+        border-bottom: 1px dotted #efdede;
+
+        &.selected{
+            color: $codeday-link-nav-hover;
+        }
+
+        &:hover{
+            color: $codeday-link-nav-hover !important;
+        }
+    }
+}
+
+.impact{
+    // text-transform: uppercase;
+    font-family: $haxor-font;
+    font-weight: bold;
+}
+
+a{
+    color: $codeday-link;
+
+    &:hover:not(.gray){
+        color: $codeday-link-hover;
+    }
+
+    &.gray{
+        color: $codeday-link-gray;
+    }
+}
+
+// SELECTIONS
+::selection {
+    @include text-background($codeday-red, true);
+}
+
+::-moz-selection{
+    @include text-background($codeday-red, true);
+}
+
+// Login with s5 button
+@-webkit-keyframes colorpulse{
+    0%{
+        background: rgb(11,192,194);
+    }
+
+    25%{
+        background: rgb(248,99,243);
+    }
+
+    50%{
+        background: rgb(252,88,67);
+    }
+
+    100%{
+        background: rgb(11,192,194);
+    }
+}
+
+@-keyframes colorpulse{
+    0%{
+        background: rgb(11,192,194);
+    }
+
+    25%{
+        background: rgb(248,99,243);
+    }
+
+    50%{
+        background: rgb(252,88,67);
+    }
+
+    100%{
+        background: rgb(11,192,194);
+    }
+}
+
+s5-button{
+    display: inline-block;
+    -webkit-animation: colorpulse 10s infinite;
+    animation: colorpulse 10s infinite;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: transparent;
+    margin: 0;
+    color: #fff;
+    border-top-width: 0;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+}

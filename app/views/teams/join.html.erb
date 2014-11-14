@@ -1,0 +1,12 @@
+<h1>Join a Team</h1>
+<%= form_for :team do |f| %>
+	<p>
+		<%= f.label :code %><br>
+		<%= f.text_field :code %>
+	</p>
+
+	<p>
+		<%= f.submit "Join" %>
+	</p>
+<% end %>
+<%= link_to "Create a team instead", new_team_path %>

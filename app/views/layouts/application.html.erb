@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= @title %> - CodeDay Teams</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body data-no-turbolink>
+	<header>
+		<codeday-logo></codeday-logo>
+		<nav>
+			<%= link_to "CodeDay Teams", root_path %>
+			<nav-right>
+				<%= link_to "Current Teams", teams_path %>
+				<% unless current_user %>
+					<%= link_to "Login", login_path %>
+				<% else %>
+					<% if current_user.team %>
+						<%= link_to "My Team", teams_code_path %>
+					<% else %>
+						<%= link_to "Join Team", teams_join_path %>
+					<% end %>
+					<%= link_to current_user.username, me_path %>
+					<%= link_to "Logout", logout_path %>
+				<% end %>
+			</nav-right>
+		</nav>
+	</header>
+	<div class="content">
+		<%= yield %>
+	</div>
+	<% if flash[:error] %>
+		<script>alert('<%= flash[:error] %>')</script>
+	<% end %>
+</body>
+</html>
