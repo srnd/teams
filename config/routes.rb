@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/teams/join' => 'teams#join'
   post '/teams/join' => 'teams#join_team'
   get '/teams/leave' => 'teams#leave'
+  post '/teams/project' => 'teams#save_project'
 
   resources :teams
   resources :users

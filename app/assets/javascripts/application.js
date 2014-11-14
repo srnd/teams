@@ -14,3 +14,58 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+Loader = (function(){
+	var loader = {
+		show: function(){
+			$('.loader .check').removeClass('checked');
+			$('.loader .error').removeClass('errored');
+			$('.loader').fadeIn();
+			$('.loader svg').fadeIn();
+		},
+		done: function(){
+			$('.loader svg').fadeOut('fast', function(){
+				$('.loader .check').addClass('checked');
+				setTimeout(function(){
+					$('.loader').fadeOut();
+				}, 500);
+			});
+		},
+		error: function(){
+			$('.loader svg').fadeOut('fast', function(){
+				$('.loader .error').addClass('errored');
+				setTimeout(function(){
+					$('.loader').fadeOut();
+				}, 500);
+			});
+		}
+	};
+
+	return loader;
+}());
+
+(function(){
+	$(document).ajaxStart(function(){
+		Loader.show();
+	});
+
+	$(document).ajaxSuccess(function(){
+		Loader.done();
+	});
+
+	$(document).ajaxError(function(){
+		Loader.error();
+	});
+
+	$(document).ready(function(){
+		if($('#saveproject').length){
+			$('#saveproject').click(function(){
+				$.ajax({
+					url: '/teams/project',
+					type: 'POST',
+					data: {name: $('#project').val()}
+				});
+			});
+		}
+	});
+}())

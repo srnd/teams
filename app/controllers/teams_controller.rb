@@ -56,6 +56,12 @@ class TeamsController < ApplicationController
 		redirect_to root_path
 	end
 
+	def save_project
+		params.require(:name)
+		current_user.team.update(:project => params[:name])
+		render json: {success: true}
+	end
+
 	private
 		def team_params
 			params.require(:name)
