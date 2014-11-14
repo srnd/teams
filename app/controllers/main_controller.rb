@@ -10,6 +10,9 @@ class MainController < ApplicationController
 			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', {:params => {:access_token => code, :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}}))
 			if User.where(:username => s5_data["username"]).first
 				session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
+			else
+				user = User.create(:username => s5_data["username"], :name => "#{s5_data['first_name']} #{s5_data['last_name']}")
+				session[:current_user_id] = user.id
 			end
 			redirect_to root_path
 		rescue
