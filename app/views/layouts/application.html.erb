@@ -16,6 +16,9 @@
 				<% unless current_user %>
 					<%= link_to "Login", login_path %>
 				<% else %>
+					<% #if current_user.admin %>
+						<%= #link_to "Admin", '#' %>
+					<% #end %>
 					<% if current_user.team %>
 						<%= link_to "My Team", teams_code_path %>
 					<% else %>
