@@ -1,14 +1,26 @@
 Rails.application.routes.draw do
   root 'main#index'
+
   get '/login' => 'users#login'
+  post '/login' => 'users#post_login'
+
   get '/oauth/s5' => 'main#s5'
+
   get '/logout' => 'users#logout'
+
   get '/me' => 'users#me'
+
   get '/teams/code' => 'teams#code'
   get '/teams/join' => 'teams#join'
   post '/teams/join' => 'teams#join_team'
   get '/teams/leave' => 'teams#leave'
   post '/teams/project' => 'teams#save_project'
+
+  get '/register' => 'users#register'
+  post '/register' => 'users#post_register'
+
+  get '/login/manual' => 'main#manual_login', as: 'manual_login'
+  post '/login/manual' => 'main#manual_login'
 
   resources :teams
   resources :users

@@ -2,6 +2,13 @@ class User < ActiveRecord::Base
 	belongs_to :team
 	validates :username, uniqueness: true
 
+	before_save :default_values
+
+	def default_values
+		self.admin = false
+		self.generate_salt
+	end
+
 	def authenticate(password)
 		if Digest::MD5.hexdigest(Digest::MD5.hexdigest(password) + self.salt) == self.password
 			return true

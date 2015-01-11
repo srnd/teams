@@ -148,6 +148,12 @@ a{
     @include text-background($codeday-red, true);
 }
 
+.alert-error{
+  padding: 10px;
+  border-left: 3px solid $codeday-red;
+  margin-bottom: 10px;
+}
+
 // Login with s5 button
 @-webkit-keyframes colorpulse{
     0%{

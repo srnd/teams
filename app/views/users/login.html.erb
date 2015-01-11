@@ -1,2 +1,18 @@
 <h1>Login</h1>
-<a href="https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5"><s5-button>Log in with s5</s5-button></a>
+<%= form_for :user do |u| %>
+  <p>
+    <%= u.label :username %><br>
+    <%= u.text_field :username %>
+  </p>
+
+  <p>
+    <%= u.label :password %><br>
+    <%= u.text_field :password, :type => "password" %>
+  </p>
+
+  <p>
+    <%= u.submit "Log in" %> or <%= link_to "Register", register_path %>
+  </p>
+<% end %>
+<h2>Single-Sign-On</h2>
+<a href="https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5"><s5-button>Log in with StudentRND s5</s5-button></a>

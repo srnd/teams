@@ -3,6 +3,17 @@ class MainController < ApplicationController
 		@title = "Welcome"
 	end
 
+	def manual_login
+		unless Rails.env == "development"
+			redirect_to root_path
+		end
+		@title = "Manual Login"
+		if params[:user]
+			session[:current_user_id] = User.where(:username => params[:user][:username]).first.id
+			redirect_to root_path
+		end
+	end
+
 	def s5
 		require 'rest_client'
 		begin

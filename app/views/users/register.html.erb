@@ -1,0 +1,30 @@
+<h1>Register</h1>
+
+<%= form_for :user do |u| %>
+
+  <b>Protip:</b> You can fill this out with <%= link_to "HackOne", "https://chrome.google.com/webstore/detail/hackone/ochbpomnongmncmgifkdbmcjfeekfghm" %>!<br>
+
+  <p>
+    <%= u.label :username %><br>
+    <%= u.text_field :username, "data-hackone" => "username" %>
+  </p>
+
+  <p>
+    <%= u.label :first_name %><br>
+    <%= u.text_field :first_name, "data-hackone" => "bio.firstName" %>
+  </p>
+
+  <p>
+    <%= u.label :last_name %><br>
+    <%= u.text_field :last_name, "data-hackone" => "bio.lastName" %>
+  </p>
+
+  <p>
+    <%= u.label :password %><br>
+    <%= u.text_field :password, :type => "password" %>
+  </p>
+
+  <p>
+    <%= u.submit "Register" %> or <%= link_to "Log in", login_path %>
+  </p>
+<% end %>

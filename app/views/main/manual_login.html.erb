@@ -1,0 +1,10 @@
+<%= form_for :user do |u| %>
+  <p>
+    <%= u.label :username %><br>
+    <%= u.text_field :username %>
+  </p>
+
+  <p>
+    <%= u.submit "Login" %>
+  </p>
+<% end %>
