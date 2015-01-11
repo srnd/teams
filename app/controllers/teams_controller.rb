@@ -42,10 +42,21 @@ class TeamsController < ApplicationController
 	end
 
 	def create
-		params.require(:team).require(:name)
-		team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5))
-		current_user.update(:team_id => team.id)
-		redirect_to teams_code_path
+		@title = "Create Team"
+		params.require(:team).permit(:name, :event_id)
+		if Event.where(:id => params[:team][:event_id]).first.is_a? Event
+			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id])
+			if team.valid?
+				current_user.update(:team_id => team.id)
+				redirect_to teams_code_path
+			else
+				flash[:error] = handle_errors(team.errors.full_messages)
+				redirect_to new_team_path
+			end
+		else
+			flash[:error] = "Invalid event"
+			redirect_to new_team_path
+		end
 	end
 
 	def leave
@@ -64,6 +75,6 @@ class TeamsController < ApplicationController
 
 	private
 		def team_params
-			params.require(:name)
+			params.require(:team).permit(:name, :event_id)
 		end
 end

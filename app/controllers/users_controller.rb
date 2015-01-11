@@ -25,18 +25,14 @@ class UsersController < ApplicationController
 	end
 
 	def post_register
+		@title = "Register"
 		user = User.create(user_params)
 		if user.valid?
 			user.set_password(params[:user][:password])
 			session[:current_user_id] = user.id
 			redirect_to root_path
 		else
-			@title = "Register"
-			error = ""
-			user.errors.full_messages.each do |m|
-				error += "#{m}\n"
-			end
-			flash.now[:error] = error
+			flash.now[:error] = handle_errors(user.errors.full_messages)
 			render :register
 		end
 	end

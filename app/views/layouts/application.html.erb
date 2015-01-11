@@ -30,7 +30,8 @@
 	<div class="content">
 		<% if flash[:error] %>
 			<div class="alert-error">
-				<%= flash[:error] %>
+				<b>Error:</b><br>
+				<%= flash[:error].html_safe %>
 			</div>
 		<% end %>
 		<%= yield %>
