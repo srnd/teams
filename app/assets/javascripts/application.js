@@ -45,6 +45,18 @@ Loader = (function(){
 }());
 
 (function(){
+	function ready(){
+		if($('#saveproject').length){
+			$('#saveproject').click(function(){
+				$.ajax({
+					url: '/teams/project',
+					type: 'POST',
+					data: {name: $('#project').val()}
+				});
+			});
+		}
+	}
+
 	$(document).ajaxStart(function(){
 		Loader.show();
 	});
@@ -57,15 +69,7 @@ Loader = (function(){
 		Loader.error();
 	});
 
-	$(document).ready(function(){
-		if($('#saveproject').length){
-			$('#saveproject').click(function(){
-				$.ajax({
-					url: '/teams/project',
-					type: 'POST',
-					data: {name: $('#project').val()}
-				});
-			});
-		}
-	});
+	$(document).on('ready page:change', ready);
+
+	Turbolinks.enableProgressBar();
 }())

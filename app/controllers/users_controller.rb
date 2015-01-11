@@ -4,9 +4,7 @@ class UsersController < ApplicationController
 	end
 
 	def me
-		@user = current_user
-		@title = @user.name
-		render :show
+		redirect_to user_path(current_user)
 	end
 
 	def show

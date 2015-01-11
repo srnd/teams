@@ -205,6 +205,10 @@ s5-button{
     cursor: pointer;
 }
 
+html.turbolinks-progress-bar::before {
+    background-color: $codeday-red !important;
+}
+
 @-moz-keyframes bottomcheck {
 	0% {
 		height:0
