@@ -14,6 +14,17 @@ class MainController < ApplicationController
 		end
 	end
 
+	def exchange_token
+		params.require(:access_token)
+		params.require(:secret)
+		app = Application.where(:secret => params[:secret]).first
+		if app.is_a? Application
+			render json: {:token => Token.exchange(app, params[:access_token])}
+		else
+			render json: {:token => "no"}
+		end
+	end
+
 	def s5
 		require 'rest_client'
 		begin

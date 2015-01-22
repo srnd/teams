@@ -1,18 +1,33 @@
 <h1>Login</h1>
-<%= form_for :user do |u| %>
-  <p>
-    <%= u.label :username %><br>
-    <%= u.text_field :username %>
-  </p>
+<div class="login-form">
+  <table>
+    <% if @application.is_a? Application %>
+      <tr>
+        <b><%= @application.name %></b> by <b><%= link_to @application.user.username, @application.user %></b> is requesting your public info. Sign in to allow this.
+        <br><br>
+      </tr>
+    <% end %>
+    <tr>
+      <td>
+        <%= form_for :user do |u| %>
+          <p>
+            <%= u.label :username %><br>
+            <%= u.text_field :username %>
+          </p>
 
-  <p>
-    <%= u.label :password %><br>
-    <%= u.text_field :password, :type => "password" %>
-  </p>
+          <p>
+            <%= u.label :password %><br>
+            <%= u.text_field :password, :type => "password" %>
+          </p>
 
-  <p>
-    <%= u.submit "Log in" %> or <%= link_to "Register", register_path %>
-  </p>
-<% end %>
-<h2>Single-Sign-On</h2>
-<a href="https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5"><s5-button>Log in with StudentRND s5</s5-button></a>
+          <p>
+            <%= u.submit "Log in" %> or <%= link_to "Register", "/register#{if params[:appid] then "?appid=#{params[:appid]}" end}" %>
+          </p>
+        <% end %>
+      </td>
+      <td>
+        <a href="<%= @s5_sso_url %>"><s5-button>Log in with StudentRND s5</s5-button></a>
+      </td>
+    </tr>
+  </table>
+</div>

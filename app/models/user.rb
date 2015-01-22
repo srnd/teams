@@ -1,8 +1,17 @@
 class User < ActiveRecord::Base
 	belongs_to :team
+	has_many :tokens
 	validates :username, uniqueness: true
 
 	before_save :default_values
+
+	def api_filter
+		return {
+			:username => self.username,
+			:real_name => self.name,
+			:admin => self.admin
+		}
+	end
 
 	def default_values
 		self.admin = false

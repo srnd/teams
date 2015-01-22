@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   get '/login/manual' => 'main#manual_login', as: 'manual_login'
   post '/login/manual' => 'main#manual_login'
 
+  get '/api/me' => 'users#api_me'
+  get '/api/exchange' => 'main#exchange_token'
+
   resources :teams
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.

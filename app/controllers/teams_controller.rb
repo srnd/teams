@@ -11,9 +11,7 @@ class TeamsController < ApplicationController
 
 	def code
 		@title = "My Team"
-		unless current_user.team
-			redirect_to root_path
-		end
+		unless current_user.team then redirect_to root_path end
 		@team = current_user.team
 	end
 
@@ -70,7 +68,7 @@ class TeamsController < ApplicationController
 	def save_project
 		params.require(:name)
 		current_user.team.update(:project => params[:name])
-		render json: {success: true}
+		render json: {:success => true}
 	end
 
 	private
