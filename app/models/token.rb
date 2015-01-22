@@ -15,7 +15,7 @@ class Token < ActiveRecord::Base
     end
   end
 
-  def self.user_with_token(application, token = "")
+  def self.user_with_token(application, token)
     if Token.where(:application_id => application.id, :token_string => token).first.is_a? Token
       return Token.where(:application_id => application.id, :token_string => token).first.user
     else
