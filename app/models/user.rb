@@ -34,9 +34,11 @@ class User < ActiveRecord::Base
 
 	def api_filter
 		return {
+			:id => self.id,
 			:username => self.username,
-			:real_name => self.name,
-			:admin => self.admin
+			:name => self.name,
+			:admin => self.admin,
+			:team => self.team
 		}
 	end
 end
