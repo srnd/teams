@@ -42,11 +42,15 @@ class TeamsController < ApplicationController
 
 	def create
 		@title = "Create Team"
+		if current_user.team
+			redirect_to root_path
+		end
 		params.require(:team).permit(:name, :event_id)
 		if Event.where(:id => params[:team][:event_id]).first.is_a? Event
 			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id])
 			if team.valid?
 				current_user.update(:team_id => team.id)
+				ctf_hook(:event => "create", :id => team.id, :user_id => current_user.id, :name => team.name)
 				redirect_to teams_code_path
 			else
 				flash[:error] = handle_errors(team.errors.full_messages)
