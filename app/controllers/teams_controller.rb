@@ -24,6 +24,7 @@ class TeamsController < ApplicationController
 
 	def join_team
 		if Team.where(:code => params[:team][:code]).first
+			ctf_hook({:event => "join", :id => current_user.id, :team_id => params[:team][:code]})
 			current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_to root_path
 		else
@@ -59,8 +60,10 @@ class TeamsController < ApplicationController
 
 	def leave
 		if current_user.team.users.count == 1
+			ctf_hook({:event => "delete", :thing => "team", :id => current_user.team.id})
 			current_user.team.destroy
 		end
+		ctf_hook({:event => "leave", :id => current_user.id})
 		current_user.update(:team_id => nil)
 		redirect_to root_path
 	end

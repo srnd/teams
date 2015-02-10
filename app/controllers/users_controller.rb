@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 	end
 
 	def register
-		if current_user then redirect_to root_path end
+		if current_user then redirect_to root_path; return end
 		if params[:appid]
 			@application = Application.where(:appid => params[:appid]).first || nil
 			session[:app_intent] = params[:appid]
