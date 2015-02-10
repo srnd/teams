@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
 
 	def join_team
 		if Team.where(:code => params[:team][:code]).first
-			ctf_hook({:event => "join", :id => current_user.id, :team_id => params[:team][:code]})
+			ctf_hook({:event => "join", :id => current_user.id, :team_id => Team.where(:code => params[:team][:code]).first.id})
 			current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_to root_path
 		else
