@@ -4,4 +4,8 @@ class Team < ActiveRecord::Base
 
 	validates :name, :presence => true
 	validates :event_id, :presence => true
+
+	def api_filter
+		return {:id => self.id, :name => self.name, :event_id => self.event_id, :project => self.project}
+	end
 end

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/teams/join' => 'teams#join_team'
   get '/teams/leave' => 'teams#leave'
   post '/teams/project' => 'teams#save_project'
+  get '/teams/event/:id' => 'teams#event'
 
   get '/register' => 'users#register'
   post '/register' => 'users#post_register'

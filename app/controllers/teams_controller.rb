@@ -62,6 +62,19 @@ class TeamsController < ApplicationController
 		end
 	end
 
+	def event
+		teams = Team.where(:event_id => params[:id])
+		respond_to do |m|
+			m.json {
+				json_teams = []
+				teams.each do |t|
+					json_teams.push(t.api_filter)
+				end
+				render json: {:teams => json_teams}
+			}
+		end
+	end
+
 	def leave
 		if current_user.team.users.count == 1
 			ctf_hook({:event => "delete", :thing => "team", :id => current_user.team.id})
