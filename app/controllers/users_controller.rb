@@ -7,10 +7,10 @@ class UsersController < ApplicationController
 				token = Token.token_for(@application, current_user)
 				redirect_to "#{@application.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
 			end
-			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
 		else
 			if current_user then redirect_to root_path end
-			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5"
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5"
 			session[:app_intent] = nil
 			@application = nil
 		end
@@ -47,10 +47,10 @@ class UsersController < ApplicationController
 		if params[:appid]
 			@application = Application.where(:appid => params[:appid]).first || nil
 			session[:app_intent] = params[:appid]
-			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
 		else
 			if current_user then redirect_to root_path end
-			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.tjhorner.com/oauth/s5"
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5"
 			session[:app_intent] = nil
 			@application = nil
 		end
