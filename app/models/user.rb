@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	belongs_to :team
 	has_many :tokens
-	validates :username, uniqueness: true
+	validates :username, uniqueness: true, :format => { :with => /^[a-z0-9]+[-a-z0-9]*[a-z0-9]+$/i }
 
 	before_save :default_values
 
