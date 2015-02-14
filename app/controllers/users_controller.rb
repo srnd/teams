@@ -59,20 +59,25 @@ class UsersController < ApplicationController
 
 	def post_register
 		@title = "Register"
-		user = User.create(user_params)
-		if user.valid?
-			user.set_password(params[:user][:password])
-			session[:current_user_id] = user.id
-			if Application.where(:appid => session[:app_intent]).first.is_a? Application
-				app = Application.where(:appid => session[:app_intent]).first || nil
-				token = Token.token_for(app, user)
-				session[:app_intent] = nil
-				redirect_to "#{app.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
+		if params[:password]
+			user = User.create(user_params)
+			if user.valid?
+				user.set_password(params[:user][:password])
+				session[:current_user_id] = user.id
+				if Application.where(:appid => session[:app_intent]).first.is_a? Application
+					app = Application.where(:appid => session[:app_intent]).first || nil
+					token = Token.token_for(app, user)
+					session[:app_intent] = nil
+					redirect_to "#{app.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
+				else
+					redirect_to root_path
+				end
 			else
-				redirect_to root_path
+				flash.now[:error] = handle_errors(user.errors.full_messages)
+				render :register
 			end
 		else
-			flash.now[:error] = handle_errors(user.errors.full_messages)
+			flash.now[:error] = handle_errors(["Password is required"])
 			render :register
 		end
 	end
@@ -104,7 +109,7 @@ class UsersController < ApplicationController
 	private
 		def user_params
 			userparams = params.require(:user).permit(:username, :first_name, :last_name, :password)
-			return {:username => userparams[:username], :name => "#{userparams[:first_name]} #{userparams[:last_name]}", :password => userparams[:password]}
+			return {:username => userparams[:username], :name => "#{userparams[:first_name]} #{userparams[:last_name]}"}
 		end
 
 		def user_login_params
