@@ -104,7 +104,7 @@ class UsersController < ApplicationController
 	private
 		def user_params
 			userparams = params.require(:user).permit(:username, :first_name, :last_name, :password)
-			return {:username => userparams[:username], :name => "#{userparams[:first_name]} #{userparams[:last_name]}"}
+			return {:username => userparams[:username], :name => "#{userparams[:first_name]} #{userparams[:last_name]}", :password => userparams[:password]}
 		end
 
 		def user_login_params
