@@ -59,7 +59,7 @@ class UsersController < ApplicationController
 
 	def post_register
 		@title = "Register"
-		if params[:password]
+		# if params[:password]
 			user = User.create(user_params)
 			if user.valid?
 				user.set_password(params[:user][:password])
@@ -76,10 +76,10 @@ class UsersController < ApplicationController
 				flash.now[:error] = handle_errors(user.errors.full_messages)
 				render :register
 			end
-		else
-			flash.now[:error] = handle_errors(["Password is required"])
-			render :register
-		end
+		# else
+		# 	flash.now[:error] = handle_errors(["Password is required"])
+		# 	render :register
+		# end
 	end
 
 	def post_login
