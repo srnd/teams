@@ -12,3 +12,16 @@ The current batch is shown in bold.
     </li>
   <% end %>
 </ul>
+<h2>Choose Managed Event</h2>
+Choose which CodeDay you would like to manage.
+<ul>
+  <% Event.all.order("id ASC").each do |e| %>
+    <li>
+      <% if current_user.event_id == e.id %>
+        <%= link_to content_tag(:b, e.city), admin_set_event_path(e) %>
+      <% else %>
+        <%= link_to e.city, admin_set_event_path(e) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

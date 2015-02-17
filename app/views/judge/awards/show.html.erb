@@ -1,2 +1,11 @@
 <h1>Selecting Team for <%= @award.name %></h1>
-Not available yet, Tom!
+<%= form_for :award do |f| %>
+  <h2>Select Team for Award</h2>
+  <%= collection_select(:award, :team_id, Team.where(:batch_id => @award.batch_id, :event_id => @award.event_id), :id, :name, {:prompt => true}) %>
+
+  <h2>Award Notes</h2>
+  Why did you like this team? What did they show that made them deserve this award?<br><br>
+  <%= text_area(:award, :notes, cols: 40, rows: 10) %><br><br>
+
+  <button>Update Award</button>
+<% end %>

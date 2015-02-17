@@ -11,6 +11,11 @@ class Admin::MainController < ApplicationController
     redirect_to admin_root_path
   end
 
+  def set_event
+    current_user.update(:event_id => params[:id])
+    redirect_to admin_root_path
+  end
+
   private
     def requires_admin
       if current_user && current_user.admin

@@ -30,11 +30,13 @@ Rails.application.routes.draw do
   namespace :judge do
     root 'main#index'
     resources :awards
+    post '/awards/:id' => 'awards#update'
   end
 
   namespace :admin do
     root 'main#index'
     get '/set_batch/:id' => 'main#set_batch', as: 'set_batch'
+    get '/set_event/:id' => 'main#set_event', as: 'set_event'
   end
 
   resources :teams

@@ -44,7 +44,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_awards
-    return Award.where(:batch_id => current_batch.id)
+  def current_awards(query)
+    query[:batch_id] = current_batch.id
+    return Award.where(query)
   end
 end

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_and_belongs_to_many :teams
 	has_many :tokens
+	belongs_to :event
 	validates :username, uniqueness: true, presence: true
 	validates :username, :format => { :with => /[a-z0-9]+[-a-z0-9]*[a-z0-9]+/i }
 
