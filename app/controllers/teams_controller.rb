@@ -82,12 +82,12 @@ class TeamsController < ApplicationController
 	end
 
 	def leave
+		ctf_hook({:event => "leave", :id => current_user.id})
+		current_user_team.users.delete(current_user)
 		if current_user_team.users.count == 1
 			ctf_hook({:event => "delete", :thing => "team", :id => current_user_team.id})
 			current_user_team.destroy
 		end
-		ctf_hook({:event => "leave", :id => current_user.id})
-		current_user.update(:team_id => nil)
 		redirect_to root_path
 	end
 
