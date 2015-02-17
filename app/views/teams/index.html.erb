@@ -1,6 +1,10 @@
-<h1>Teams for Winter 2015</h1>
+<% Batch.where.not(:id => @batch.id).each do |b| %>
+	<%= link_to "See teams for #{b.name}", b %>
+<% end %>
+
+<h1>Teams for <%= @batch.name %></h1>
 <% Event.all.each do |event|
-	 	teams = Team.where(:event_id => event.id)
+	 	teams = Team.where(:event_id => event.id, :batch_id => @batch.id)
 		unless teams.count < 1 %>
 		<h2>CodeDay <%= event.city %></h2>
 		<% teams.each do |team| %>

@@ -6,5 +6,5 @@ Project Name: <input id="project" value="<%= @team.project %>"></input> <button 
 		<li><%= link_to user.name, user %></li>
 	<% end %>
 </ul>
-<%= link_to "Leave Team", teams_leave_path %> <% if current_user.team.users.count == 1 %>(team will be deleted, you are the last member)<% end %><br><br>
+<%= link_to "Leave Team", teams_leave_path %> <% if current_user_team.users.count == 1 %>(team will be deleted, you are the last member)<% end %><br><br>
 Team Code: <b><%= @team.code %></b>

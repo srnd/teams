@@ -1,8 +1,8 @@
 <h1><%= @user.name %> (<%= @user.username %>)</h1>
-<% if @user.team %>
-	Team: <%= link_to @user.team.name, @user.team %>
+<% if @user.current_team %>
+	Team: <%= link_to @user.current_team.name, @user.current_team %>
 	<br>
-	Their team is working on <%= @user.team.project || "nothing" %>.
+	Their team is working on <%= @user.current_team.project || "nothing" %>.
 <% else %>
 	Team: (none)
 <% end %>

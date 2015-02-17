@@ -1,7 +1,13 @@
 class TeamsController < ApplicationController
 	def index
 		@title = "Current Teams"
-		@teams = Team.all
+		@batch = current_batch
+	end
+
+	def batch
+		@batch = Batch.find(params[:id])
+		@title = "Teams for #{@batch.name}"
+		render :index
 	end
 
 	def show
@@ -11,13 +17,13 @@ class TeamsController < ApplicationController
 
 	def code
 		@title = "My Team"
-		unless current_user.team then redirect_to root_path end
-		@team = current_user.team
+		unless current_user_team then redirect_to root_path end
+		@team = current_user_team
 	end
 
 	def join
 		@title = "Join Team"
-		if current_user.team
+		if current_user_team
 			redirect_to root_path
 		end
 	end
@@ -35,14 +41,14 @@ class TeamsController < ApplicationController
 
 	def new
 		@title = "Create Team"
-		if current_user.team
+		if current_user_team
 			redirect_to root_path
 		end
 	end
 
 	def create
 		@title = "Create Team"
-		if current_user.team
+		if current_user_team
 			redirect_to root_path
 		end
 		params.require(:team).permit(:name, :event_id)
@@ -76,9 +82,9 @@ class TeamsController < ApplicationController
 	end
 
 	def leave
-		if current_user.team.users.count == 1
-			ctf_hook({:event => "delete", :thing => "team", :id => current_user.team.id})
-			current_user.team.destroy
+		if current_user_team.users.count == 1
+			ctf_hook({:event => "delete", :thing => "team", :id => current_user_team.id})
+			current_user_team.destroy
 		end
 		ctf_hook({:event => "leave", :id => current_user.id})
 		current_user.update(:team_id => nil)
@@ -87,7 +93,7 @@ class TeamsController < ApplicationController
 
 	def save_project
 		params.require(:name)
-		current_user.team.update(:project => params[:name])
+		current_user_team.update(:project => params[:name])
 		render json: {:success => true}
 	end
 

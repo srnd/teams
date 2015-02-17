@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	belongs_to :team
+	has_and_belongs_to_many :teams
 	has_many :tokens
 	validates :username, uniqueness: true, presence: true
 	validates :username, :format => { :with => /[a-z0-9]+[-a-z0-9]*[a-z0-9]+/i }
@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	before_save :default_values
 
 	def default_values
-		self.admin = false
+		self.admin ||= false
 		self.generate_salt
 	end
 
@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 			random_string = SecureRandom.urlsafe_base64(8)
 			self.update(:salt => random_string)
 		end
+	end
+
+	def current_team
+		return self.teams.where(:batch_id => Batch.where(:current => true).first.id).first
 	end
 
 	def set_password(password)

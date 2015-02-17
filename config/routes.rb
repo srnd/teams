@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/teams/leave' => 'teams#leave'
   post '/teams/project' => 'teams#save_project'
   get '/teams/event/:id' => 'teams#event'
+  get '/teams/batch/:id' => 'teams#batch', as: 'batch'
 
   get '/register' => 'users#register'
   post '/register' => 'users#post_register'
@@ -25,6 +26,16 @@ Rails.application.routes.draw do
 
   get '/api/me' => 'users#api_me'
   get '/api/exchange' => 'main#exchange_token'
+
+  namespace :judge do
+    root 'main#index'
+    resources :awards
+  end
+
+  namespace :admin do
+    root 'main#index'
+    get '/set_batch/:id' => 'main#set_batch', as: 'set_batch'
+  end
 
   resources :teams
   resources :users
