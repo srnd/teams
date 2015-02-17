@@ -29,12 +29,12 @@ class TeamsController < ApplicationController
 	end
 
 	def join_team
-		if Team.where(:code => params[:team][:code]).first
+		if Team.where(:code => params[:team][:code], :batch_id => current_batch.id).first
 			ctf_hook({:event => "join", :id => current_user.id, :team_id => Team.where(:code => params[:team][:code]).first.id})
 			current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_to root_path
 		else
-			flash[:error] = "Could not find team with code"
+			flash[:error] = "Could not find team for #{current_batch.name} with that code!"
 			redirect_to teams_join_path
 		end
 	end
@@ -55,7 +55,7 @@ class TeamsController < ApplicationController
 		if Event.where(:id => params[:team][:event_id]).first.is_a? Event
 			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id])
 			if team.valid?
-				current_user.update(:team_id => team.id)
+				team.users << current_user
 				ctf_hook(:event => "create", :id => team.id, :user_id => current_user.id, :name => team.name)
 				redirect_to teams_code_path
 			else
