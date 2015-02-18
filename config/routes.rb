@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     root 'main#index'
     get '/set_batch/:id' => 'main#set_batch', as: 'set_batch'
     get '/set_event/:id' => 'main#set_event', as: 'set_event'
+    get '/scramble' => 'main#scramble', as: 'scramble'
   end
 
   resources :teams

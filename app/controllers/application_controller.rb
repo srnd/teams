@@ -32,8 +32,9 @@ class ApplicationController < ActionController::Base
     return Batch.where(:current => true).first
   end
 
-  def current_teams
-    return current_batch.teams
+  def current_teams(query = [])
+    query[:batch_id] = current_batch.id
+    return Team.where(query)
   end
 
   def current_user_team
@@ -44,7 +45,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_awards(query)
+  def current_awards(query = [])
     query[:batch_id] = current_batch.id
     return Award.where(query)
   end

@@ -562,7 +562,7 @@ input[type="text"], input[type="password"], input:not([type]){
   outline: none;
 }
 
-input[type="submit"], input[type="button"], button{
+input[type="submit"], input[type="button"], button, .button{
   outline: none;
   -moz-transition: background .3s;
   -o-transition: background .3s;
@@ -571,7 +571,9 @@ input[type="submit"], input[type="button"], button{
   cursor: pointer;
   border: 1px solid $codeday-lightgreen;
   background: $codeday-lightgreen;
-  // padding: 5px;
+  padding: 1px 3px;
+  color: black !important;
+  text-decoration: none;
 
   &:hover{
     background: $codeday-green;
@@ -582,4 +584,13 @@ input[type="submit"], input[type="button"], button{
     position: relative;
     top: 1px;
   }
+}
+
+code{
+  font-family: monospace;
+  background: white;
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  display: inline-block;
 }

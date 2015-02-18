@@ -16,6 +16,14 @@ class Admin::MainController < ApplicationController
     redirect_to admin_root_path
   end
 
+  def scramble
+    @teams = current_teams(:event_id => current_user.event_id).order("RANDOM()")
+    @names = []
+    @teams.each do |t|
+      @names.push(t.name)
+    end
+  end
+
   private
     def requires_admin
       if current_user && current_user.admin
