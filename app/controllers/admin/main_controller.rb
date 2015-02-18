@@ -17,6 +17,7 @@ class Admin::MainController < ApplicationController
   end
 
   def scramble
+    @title = "Scrambled Teams"
     @teams = current_teams(:event_id => current_user.event_id).order("RANDOM()")
     @names = []
     @teams.each do |t|
