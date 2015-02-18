@@ -45,6 +45,36 @@ body{
     background: $page-background;
 }
 
+.hero{
+  position: relative;
+  display: inline-block;
+
+  .hero-image{
+    width: 340px;
+    height: 340px;
+    background-size: auto 340px;
+    background-position: center center;
+    box-shadow: 0px 0px 5px #888;
+  }
+
+  .hero-text{
+    width: 670px;
+  }
+
+  .hero-right{
+    float: right;
+    margin-left: 14px;
+  }
+
+  .hero-left{
+    float: left;
+  }
+
+  img{
+    max-height: 200px;
+  }
+}
+
 .content{
     width: $content-width;
     margin: 0 auto;
