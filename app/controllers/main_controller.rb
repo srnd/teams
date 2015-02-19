@@ -43,7 +43,7 @@ class MainController < ApplicationController
 				end
 			end
 
-			current_user.update(:s5_username => s5_data["username"], :admin => admin, :legacy => false)
+			current_user.update(:s5_username => s5_data["username"], :admin => admin, :legacy => false, :name => "#{s5_data['first_name']} #{s5_data['last_name']}")
 			redirect_to root_path
 		rescue => e
 			if Rails.env.development?
@@ -75,7 +75,7 @@ class MainController < ApplicationController
 					User.where(:username => s5_data["username"]).first.update(:admin => true)
 					session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
 				else
-					user = User.create(:username => s5_data["username"], :name => "#{s5_data['first_name']} #{s5_data['last_name']}", :admin => admin)
+					user = User.create(:username => s5_data["username"], :name => "#{s5_data['first_name']} #{s5_data['last_name']}", :admin => admin, :s5_username => s5_data["username"])
 					session[:current_user_id] = user.id
 				end
 				redirect_to root_path
