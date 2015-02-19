@@ -45,6 +45,7 @@ class MainController < ApplicationController
 			end
 
 			current_user.update(:s5_username => s5_data["username"], :admin => admin, :email => s5_data["email"], :legacy => false, :name => "#{s5_data['first_name']} #{s5_data['last_name']}")
+			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
 			redirect_to root_path
 		rescue => e
 			if Rails.env.development?
