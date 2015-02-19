@@ -8,6 +8,7 @@ class Admin::MainController < ApplicationController
   def set_batch
     current_batch.update(:current => false)
     Batch.find(params[:id]).update(:current => true)
+    flash[:message] = "Batch changed successfully"
     redirect_to admin_root_path
   end
 

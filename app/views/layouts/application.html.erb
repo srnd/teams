@@ -43,6 +43,12 @@
 				<%= flash[:error].html_safe %>
 			</div>
 		<% end %>
+		
+		<% if flash[:message] %>
+			<div class="alert-message">
+				<%= flash[:message].html_safe %>
+			</div>
+		<% end %>
 		<%= yield %>
 	</div>
 	<footer>

@@ -184,6 +184,11 @@ a{
   margin-bottom: 10px;
 }
 
+.alert-message{
+  @extend .alert-error;
+  border-color: $codeday-green;
+}
+
 // Login with s5 button
 @-webkit-keyframes colorpulse{
     0%{
