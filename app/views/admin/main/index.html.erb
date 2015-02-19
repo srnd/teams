@@ -1,4 +1,5 @@
 <h1>Admin Panel</h1>
+
 <h2>Choose Current Batch</h2>
 The current batch is shown in bold.
 <ul>
@@ -12,6 +13,11 @@ The current batch is shown in bold.
     </li>
   <% end %>
 </ul>
+
+<h2>Scramble Teams</h2>
+Scramble the teams for the CodeDay you manage, useful for presentation order.<br><br>
+<%= link_to "Scramble Teams", admin_scramble_path, :class => "button" %>
+
 <h2>Choose Managed Event</h2>
 Choose which CodeDay you would like to manage.
 <ul>

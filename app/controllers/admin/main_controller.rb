@@ -8,12 +8,22 @@ class Admin::MainController < ApplicationController
   def set_batch
     current_batch.update(:current => false)
     Batch.find(params[:id]).update(:current => true)
+    flash[:message] = "Batch changed successfully"
     redirect_to admin_root_path
   end
 
   def set_event
     current_user.update(:event_id => params[:id])
     redirect_to admin_root_path
+  end
+
+  def scramble
+    @title = "Scrambled Teams"
+    @teams = current_teams(:event_id => current_user.event_id).order("RANDOM()")
+    @names = []
+    @teams.each do |t|
+      @names.push(t.name)
+    end
   end
 
   private
