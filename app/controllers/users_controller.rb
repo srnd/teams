@@ -7,10 +7,10 @@ class UsersController < ApplicationController
 				token = Token.token_for(@application, current_user)
 				redirect_to "#{@application.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
 			end
-			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}&scope=extended"
 		else
 			if current_user then redirect_to root_path end
-			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5"
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/oauth/s5&scope=extended"
 			session[:app_intent] = nil
 			@application = nil
 		end
