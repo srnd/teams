@@ -9,20 +9,21 @@
     <% end %>
     <tr>
       <td>
+        <h3 style="text-align: center">Have a legacy account?</h3>
         <%= form_for :user do |u| %>
-          <p>
-            <%= u.label :username %><br>
-            <%= u.text_field :username %>
-          </p>
+        <p>
+          <%= u.label :username %><br>
+          <%= u.text_field :username %>
+        </p>
 
-          <p>
-            <%= u.label :password %><br>
-            <%= u.text_field :password, :type => "password" %>
-          </p>
+        <p>
+          <%= u.label :password %><br>
+          <%= u.text_field :password, :type => "password" %>
+        </p>
 
-          <p>
-            <%= u.submit "Log in" %> or <%= link_to "Register", "/register#{if params[:appid] then "?appid=#{params[:appid]}" end}" %>
-          </p>
+        <p>
+          <%= u.submit "Log in" %>
+        </p>
         <% end %>
       </td>
       <td>

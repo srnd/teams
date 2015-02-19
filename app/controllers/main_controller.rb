@@ -25,6 +25,36 @@ class MainController < ApplicationController
 		end
 	end
 
+	def legacy
+		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/legacy/oauth&scope=extended"
+		@title = "Migrate to s5"
+	end
+
+	def legacy_oauth
+		unless current_user then redirect_to root_path end
+		begin
+			code = RestClient.get('https://s5.studentrnd.org/api/oauth/exchange', {:params => {:code => params[:code], :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}})
+			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', {:params => {:access_token => code, :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}}))
+			admin_groups = [2, 3]
+			admin = false
+			s5_data["groups"].each do |g|
+				if admin_groups.include? g["id"]
+					admin = true
+				end
+			end
+
+			current_user.update(:s5_username => s5_data["username"], :admin => admin, :legacy => false)
+			redirect_to root_path
+		rescue => e
+			if Rails.env.development?
+				flash[:error] = e.inspect
+			else
+				flash[:error] = "Error linking s5 and Teams account"
+			end
+			redirect_to legacy_path
+		end
+	end
+
 	def s5
 		require 'rest_client'
 		begin

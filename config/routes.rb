@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   get '/api/me' => 'users#api_me'
   get '/api/exchange' => 'main#exchange_token'
 
+  get '/legacy' => 'main#legacy'
+  get '/legacy/oauth' => 'main#legacy_oauth'
+
   namespace :judge do
     root 'main#index'
     resources :awards

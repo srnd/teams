@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217052708) do
+ActiveRecord::Schema.define(version: 20150219005334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20150217052708) do
     t.string   "salt"
     t.boolean  "judge"
     t.integer  "event_id"
+    t.boolean  "legacy"
+    t.string   "s5_username"
   end
 
 end

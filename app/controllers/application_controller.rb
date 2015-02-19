@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :current_user, :handle_errors, :ctf_hook, :http_get, :current_batch, :current_teams, :current_awards, :current_user_team
+  before_filter :check_legacy
 
   def http_get(domain, path, params)
     return Net::HTTP.get(domain, "#{path}?".concat(params.collect { |k,v| "#{k}=#{CGI::escape(v.to_s)}" }.join('&'))) if not params.nil?
@@ -49,4 +50,13 @@ class ApplicationController < ActionController::Base
     query[:batch_id] = current_batch.id
     return Award.where(query)
   end
+
+  private
+    def check_legacy
+      if current_user && current_user.legacy
+        unless request.path == legacy_path || request.path == legacy_oauth_path
+          redirect_to legacy_path
+        end
+      end
+    end
 end

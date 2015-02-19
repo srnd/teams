@@ -1,0 +1,13 @@
+<h1>Migrate to s5</h1>
+Hi <%= current_user.name %>! You created your account before we started implementing
+s5 (StudentRND Service Single Sign-on System) into Teams. We'll be using it to manage
+accounts from now on. Please <%= link_to "create an s5 account", "https://s5.studentrnd.org" %>
+and come back to this page to link your account.
+<br><br>
+<b>Note for Regional Managers/Evangelists:</b> When you sign in with s5, you'll be
+granted access to the admin panel where you can manage your CodeDay and select judges.
+<br><br>
+Once you have an s5 account, you can click the "Link my s5 Account" button below to
+link your s5 and Teams account.
+<br><br>
+<a href="<%= @s5_sso_url %>"><s5-button>Link my s5 Account</s5-button></a>
