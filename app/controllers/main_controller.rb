@@ -26,7 +26,7 @@ class MainController < ApplicationController
 	end
 
 	def legacy
-		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/legacy/oauth&scope=extended"
+		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/legacy/oauth"
 		@title = "Migrate to s5"
 	end
 
