@@ -1,0 +1,16 @@
+<% Batch.where.not(:id => @batch.id).each do |b| %>
+  <%= link_to "See teams for #{b.name}", event_path(:id => @event.id, :batch_id => b.id) %>
+<% end %>
+
+<h1>Teams for <%= @event.city %> <%= @batch.name %></h1>
+<ul>
+  <% @teams.order("id ASC").each do |t| %>
+    <li>
+      <%= link_to t.name, t %>
+      <ul>
+        <li>Project: <%= t.project || "nothing" %></li>
+        <li><%= t.users.count %> members</li>
+      </ul>
+    </li>
+  <% end %>
+</ul>

@@ -3,18 +3,8 @@
 <% end %>
 
 <h1>Teams for <%= @batch.name %></h1>
-<% Event.all.each do |event|
-	 	teams = Team.where(:event_id => event.id, :batch_id => @batch.id)
-		unless teams.count < 1 %>
-		<h2>CodeDay <%= event.city %></h2>
-		<% teams.each do |team| %>
-			<h2><%= link_to team.name, team %></h2>
-			This team is working on <%= team.project || "nothing" %>.
-			<ul>
-				<% team.users.each do |user| %>
-				<li><%= link_to user.name, user %></li>
-				<% end %>
-			</ul>
-		<% end %>
+<ul>
+	<% Event.all.each do |event| %>
+		<li><%= link_to "View teams for #{event.city}", event_path(:id => event.id, :batch_id => @batch.id) %></li>
 	<% end %>
-<% end %>
+</ul>

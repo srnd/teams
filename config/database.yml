@@ -15,16 +15,12 @@
 # gem 'pg'
 #
 default: &default
+  adapter: postgres
+  encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  adapter: postgresql
-  encoding: unicode
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  url: postgres://kxikkrmnutiydl:wwg8jdnQ_J8zJ0EuAZhhIjIHo6@ec2-54-204-39-187.compute-1.amazonaws.com:5432/d2rbeet9rifuoa
 
 development:
   <<: *default

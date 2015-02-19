@@ -69,14 +69,20 @@ class TeamsController < ApplicationController
 	end
 
 	def event
-		teams = Team.where(:event_id => params[:id])
+		@teams = Team.where(:event_id => params[:id], :batch_id => params[:batch_id] || 1)
 		respond_to do |m|
 			m.json {
 				json_teams = []
-				teams.each do |t|
+				@teams.each do |t|
 					json_teams.push(t.api_filter)
 				end
 				render json: {:teams => json_teams}
+			}
+
+			m.html {
+				@event = Event.find(params[:id])
+				@title = "Teams for #{@event.city}"
+				@batch = Batch.find(params[:batch_id] || 1)
 			}
 		end
 	end
