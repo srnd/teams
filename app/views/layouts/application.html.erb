@@ -2,6 +2,11 @@
 <html>
 <head>
 	<title><%= @title %> - CodeDay Teams</title>
+	<% if Rails.env.development? %>
+		<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+	<% else %>
+		<script src="https://codeday-teams-socket.herokuapp.com/socket.io/socket.io.js"></script>
+	<% end %>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
@@ -43,7 +48,7 @@
 				<%= flash[:error].html_safe %>
 			</div>
 		<% end %>
-		
+
 		<% if flash[:message] %>
 			<div class="alert-message">
 				<%= flash[:message].html_safe %>
