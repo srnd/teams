@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     get '/batch' => 'main#batch', as: 'batch'
     get '/awards' => 'main#awards', as: 'awards'
     get '/scramble' => 'main#scramble', as: 'scramble'
+    post '/inject' => 'main#inject', as: 'inject'
   end
 
   resources :teams

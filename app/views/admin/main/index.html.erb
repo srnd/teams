@@ -1,3 +1,12 @@
 <h1>Admin Panel</h1>
 
 <%= render "admin/buttons" %>
+
+<h2>Inject JavaScript</h2>
+This tool allows you to inject JavaScript into all users' browsers.<br>
+Useful for a force refresh or displaying a message.<br><br>
+
+<form method="POST" action="<%= admin_inject_path %>">
+  <input name="js"></input>
+  <button>Do it!</button>
+</form>
