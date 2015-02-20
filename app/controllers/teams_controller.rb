@@ -53,7 +53,7 @@ class TeamsController < ApplicationController
 		end
 		params.require(:team).permit(:name, :event_id)
 		if Event.where(:id => params[:team][:event_id]).first.is_a? Event
-			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id])
+			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id], :batch_id => current_batch.id)
 			if team.valid?
 				team.users << current_user
 				ctf_hook(:event => "create", :id => team.id, :user_id => current_user.id, :name => team.name)

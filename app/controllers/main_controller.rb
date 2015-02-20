@@ -63,6 +63,10 @@ class MainController < ApplicationController
 		end
 	end
 
+	def hall_of_fame
+		@title = "Hall of Fame"
+	end
+
 	def s5
 		require 'rest_client'
 		begin

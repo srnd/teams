@@ -1,0 +1,34 @@
+<div class="section group">
+  <div class="col span_1_of_4">
+    <a href="<%= admin_event_path %>" class="admin-button admin-button-blue">
+      <div class="admin-button-title">EVENT</div>
+      <% if current_user.event %>
+        <div class="admin-button-subtext"><%= current_user.event.city %></div>
+      <% else %>
+        <div class="admin-button-subtext">None</div>
+      <% end %>
+    </a>
+  </div>
+  <div class="col span_1_of_4">
+    <a href="<%= admin_batch_path %>" class="admin-button admin-button-red">
+      <div class="admin-button-title">BATCH</div>
+      <div class="admin-button-subtext"><%= current_batch.name %></div>
+    </a>
+  </div>
+  <div class="col span_1_of_4">
+    <a href="<%= admin_awards_path %>" class="admin-button admin-button-green">
+      <div class="admin-button-title">AWARDS</div>
+      <% if current_batch.awards_shown %>
+        <div class="admin-button-subtext">SHOWN</div>
+      <% else %>
+        <div class="admin-button-subtext">HIDDEN</div>
+      <% end %>
+    </a>
+  </div>
+  <div class="col span_1_of_4">
+    <a href="<%= admin_scramble_path %>"  class="admin-button admin-button-orange">
+      <div class="admin-button-title">SCRAMBLE</div>
+      <div class="admin-button-subtext">Scramble Teams</div>
+    </a>
+  </div>
+</div><br>

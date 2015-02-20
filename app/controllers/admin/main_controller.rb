@@ -5,16 +5,28 @@ class Admin::MainController < ApplicationController
     @title = "Admin Panel"
   end
 
+  def event
+    @title = "Change Managed Event"
+  end
+
+  def batch
+    @title = "Change Current Batch"
+  end
+
+  def awards
+    if current_batch.awards_shown then current_batch.update(:awards_shown => false) else current_batch.update(:awards_shown => true) end
+    redirect_to admin_root_path
+  end
+
   def set_batch
     current_batch.update(:current => false)
     Batch.find(params[:id]).update(:current => true)
-    flash[:message] = "Batch changed successfully"
-    redirect_to admin_root_path
+    redirect_to admin_batch_path
   end
 
   def set_event
     current_user.update(:event_id => params[:id])
-    redirect_to admin_root_path
+    redirect_to admin_event_path
   end
 
   def scramble

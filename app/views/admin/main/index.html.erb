@@ -1,33 +1,3 @@
 <h1>Admin Panel</h1>
 
-<h2>Choose Current Batch</h2>
-The current batch is shown in bold.
-<ul>
-  <% Batch.all.order("id ASC").each do |b| %>
-    <li>
-      <% if b.current %>
-        <%= link_to content_tag(:b, b.name), admin_set_batch_path(b) %>
-      <% else %>
-        <%= link_to b.name, admin_set_batch_path(b) %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<h2>Scramble Teams</h2>
-Scramble the teams for the CodeDay you manage, useful for presentation order.<br><br>
-<%= link_to "Scramble Teams", admin_scramble_path, :class => "button" %>
-
-<h2>Choose Managed Event</h2>
-Choose which CodeDay you would like to manage.
-<ul>
-  <% Event.all.order("id ASC").each do |e| %>
-    <li>
-      <% if current_user.event_id == e.id %>
-        <%= link_to content_tag(:b, e.city), admin_set_event_path(e) %>
-      <% else %>
-        <%= link_to e.city, admin_set_event_path(e) %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<%= render "admin/buttons" %>
