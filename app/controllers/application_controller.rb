@@ -12,7 +12,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
   	if session[:current_user_id]
-  		return User.find(session[:current_user_id])
+      begin
+    		return User.find(session[:current_user_id])
+      rescue
+        session[:current_user_id]
+        flash[:message] = "You have been signed due to an invalid session"
+        return nil
+      end
   	else
   		return nil
   	end

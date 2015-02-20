@@ -70,18 +70,14 @@ class MainController < ApplicationController
 				end
 			end
 
-			if Rails.env.development?
-				render json: {:s5_data => s5_data, :will_admin_user => admin}
+			if User.where(:username => s5_data["username"]).first
+				User.where(:username => s5_data["username"]).first.update(:admin => admin)
+				session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
 			else
-				if User.where(:username => s5_data["username"]).first
-					User.where(:username => s5_data["username"]).first.update(:admin => true)
-					session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
-				else
-					user = User.create(:username => s5_data["username"], :email => s5_data["email"], :name => "#{s5_data['first_name']} #{s5_data['last_name']}", :admin => admin, :s5_username => s5_data["username"])
-					session[:current_user_id] = user.id
-				end
-				redirect_to root_path
+				user = User.create(:username => s5_data["username"], :email => s5_data["email"], :name => "#{s5_data['first_name']} #{s5_data['last_name']}", :admin => admin, :s5_username => s5_data["username"], :s5_token => code)
+				session[:current_user_id] = user.id
 			end
+			redirect_to root_path
 		rescue => e
 			if Rails.env.development?
 				flash[:error] = e.inspect
