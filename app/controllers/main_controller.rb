@@ -44,7 +44,13 @@ class MainController < ApplicationController
 				end
 			end
 
-			current_user.update(:s5_username => s5_data["username"], :admin => admin, :email => s5_data["email"], :legacy => false, :name => "#{s5_data['first_name']} #{s5_data['last_name']}")
+			current_user.update(:s5_username => s5_data["username"],
+			                    :admin => admin,
+													:email => s5_data["email"],
+													:legacy => false,
+													:name => "#{s5_data['first_name']} #{s5_data['last_name']}",
+													:s5_token => code)
+
 			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
 			redirect_to root_path
 		rescue => e
@@ -74,7 +80,13 @@ class MainController < ApplicationController
 				User.where(:username => s5_data["username"]).first.update(:admin => admin)
 				session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
 			else
-				user = User.create(:username => s5_data["username"], :email => s5_data["email"], :name => "#{s5_data['first_name']} #{s5_data['last_name']}", :admin => admin, :s5_username => s5_data["username"], :s5_token => code)
+				user = User.create(:username => s5_data["username"],
+				                   :email => s5_data["email"],
+													 :name => "#{s5_data['first_name']} #{s5_data['last_name']}",
+													 :admin => admin,
+													 :s5_username => s5_data["username"],
+													 :s5_token => code)
+
 				session[:current_user_id] = user.id
 			end
 			redirect_to root_path
