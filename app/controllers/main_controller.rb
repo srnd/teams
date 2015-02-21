@@ -38,9 +38,15 @@ class MainController < ApplicationController
 			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', {:params => {:access_token => code, :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}}))
 			admin_groups = [2, 3]
 			admin = false
-			s5_data["groups"].each do |g|
-				if admin_groups.include? g["id"]
-					admin = true
+			judge = false
+			if s5_data["is_admin"]
+				admin = true
+				judge = true
+			else
+				s5_data["groups"].each do |g|
+					if admin_groups.include? g["id"]
+						admin = true
+					end
 				end
 			end
 
@@ -49,7 +55,8 @@ class MainController < ApplicationController
 													:email => s5_data["email"],
 													:legacy => false,
 													:name => "#{s5_data['first_name']} #{s5_data['last_name']}",
-													:s5_token => code)
+													:s5_token => code,
+													:judge = judge)
 
 			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
 			redirect_to root_path
@@ -74,14 +81,20 @@ class MainController < ApplicationController
 			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', {:params => {:access_token => code, :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}}))
 			admin_groups = [2, 3]
 			admin = false
-			s5_data["groups"].each do |g|
-				if admin_groups.include? g["id"]
-					admin = true
+			judge = false
+			if s5_data["is_admin"]
+				admin = true
+				judge = true
+			else
+				s5_data["groups"].each do |g|
+					if admin_groups.include? g["id"]
+						admin = true
+					end
 				end
 			end
 
 			if User.where(:username => s5_data["username"]).first
-				User.where(:username => s5_data["username"]).first.update(:admin => admin)
+				User.where(:username => s5_data["username"]).first.update(:admin => admin, :judge => judge)
 				session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
 			else
 				user = User.create(:username => s5_data["username"],
@@ -89,7 +102,8 @@ class MainController < ApplicationController
 													 :name => "#{s5_data['first_name']} #{s5_data['last_name']}",
 													 :admin => admin,
 													 :s5_username => s5_data["username"],
-													 :s5_token => code)
+													 :s5_token => code,
+													 :judge => judge)
 
 				session[:current_user_id] = user.id
 			end
