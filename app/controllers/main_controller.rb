@@ -56,7 +56,7 @@ class MainController < ApplicationController
 													:legacy => false,
 													:name => "#{s5_data['first_name']} #{s5_data['last_name']}",
 													:s5_token => code,
-													:judge = judge)
+													:judge => judge)
 
 			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
 			redirect_to root_path
