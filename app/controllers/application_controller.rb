@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :current_user, :handle_errors, :ctf_hook, :http_get, :current_batch, :current_teams, :current_awards, :current_user_team
+  before_filter :cloudflare_https
   before_filter :check_legacy
 
   def http_get(domain, path, params)
@@ -62,6 +63,15 @@ class ApplicationController < ActionController::Base
       if current_user && current_user.legacy
         unless request.path == legacy_path || request.path == legacy_oauth_path
           redirect_to legacy_path
+        end
+      end
+    end
+
+    def cloudflare_https
+      if Rails.env.production?
+        visitor = JSON.parse(request.headers["CF-Visitor"])
+        if visitor["scheme"] == "http"
+          redirect_to "https://#{request.host}#{request.fullpath}"
         end
       end
     end
