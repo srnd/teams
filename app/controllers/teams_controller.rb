@@ -30,7 +30,8 @@ class TeamsController < ApplicationController
 
 	def join_team
 		if Team.where(:code => params[:team][:code], :batch_id => current_batch.id).first
-			current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
+			Team.where(:code => params[:team][:code]).first.users << current_user
+			# current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_with_https root_path
 		else
 			flash[:error] = "Could not find team for #{current_batch.name} with that code!"
