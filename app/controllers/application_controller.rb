@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_with_https(path)
     if Rails.env.production?
-      redirect_to "https://#{path}"
+      redirect_to :protocol => "https://", :action => "path"
     else
       redirect_to path
     end
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     def check_legacy
       if current_user && current_user.legacy
         unless request.path == legacy_path || request.path == legacy_oauth_path
-          redirect_with_https legacy_path
+          redirect_to legacy_path
         end
       end
     end
@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
       if Rails.env.production?
         visitor = JSON.parse(request.headers["CF-Visitor"])
         if visitor["scheme"] == "http"
-          redirect_with_https "https://#{request.host}#{request.fullpath}"
+          redirect_to :protocol => "https://"
         end
       end
     end
