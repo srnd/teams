@@ -1,0 +1,16 @@
+<h1>Change Current Batch</h1>
+
+<%= render "admin/buttons" %>
+
+The current batch is shown in bold.
+<ul>
+  <% Batch.all.order("id ASC").each do |b| %>
+  <li>
+    <% if b.current %>
+    <%= link_to content_tag(:b, b.name), admin_set_batch_path(b) %>
+    <% else %>
+    <%= link_to b.name, admin_set_batch_path(b) %>
+    <% end %>
+  </li>
+  <% end %>
+</ul>

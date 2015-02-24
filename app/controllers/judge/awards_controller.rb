@@ -7,6 +7,6 @@ class Judge::AwardsController < Judge::MainController
   def update
     @award = Award.find(params[:id])
     @award.update(:team_id => params[:award][:team_id], :notes => params[:award][:notes])
-    redirect_to judge_root_path
+    redirect_with_https judge_root_path
   end
 end

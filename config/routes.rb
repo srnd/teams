@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get '/legacy' => 'main#legacy'
   get '/legacy/oauth' => 'main#legacy_oauth'
 
+  get '/hall_of_fame' => 'main#hall_of_fame'
+
   namespace :judge do
     root 'main#index'
     resources :awards
@@ -40,7 +42,11 @@ Rails.application.routes.draw do
     root 'main#index'
     get '/set_batch/:id' => 'main#set_batch', as: 'set_batch'
     get '/set_event/:id' => 'main#set_event', as: 'set_event'
+    get '/event' => 'main#event', as: 'event'
+    get '/batch' => 'main#batch', as: 'batch'
+    get '/awards' => 'main#awards', as: 'awards'
     get '/scramble' => 'main#scramble', as: 'scramble'
+    post '/inject' => 'main#inject', as: 'inject'
   end
 
   resources :teams
