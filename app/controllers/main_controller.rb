@@ -27,7 +27,7 @@ class MainController < ApplicationController
 
 	def legacy
 		unless current_user && current_user.legacy then redirect_with_https root_path end
-		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/legacy/oauth"
+		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=https://#{request.host_with_port}/legacy/oauth"
 		@title = "Migrate to s5"
 	end
 
