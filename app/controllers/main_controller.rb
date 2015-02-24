@@ -5,12 +5,12 @@ class MainController < ApplicationController
 
 	def manual_login
 		unless Rails.env == "development"
-			redirect_to root_path
+			redirect_with_https root_path
 		end
 		@title = "Manual Login"
 		if params[:user]
 			session[:current_user_id] = User.where(:username => params[:user][:username]).first.id
-			redirect_to root_path
+			redirect_with_https root_path
 		end
 	end
 
@@ -26,13 +26,13 @@ class MainController < ApplicationController
 	end
 
 	def legacy
-		unless current_user && current_user.legacy then redirect_to root_path end
+		unless current_user && current_user.legacy then redirect_with_https root_path end
 		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://#{request.host_with_port}/legacy/oauth"
 		@title = "Migrate to s5"
 	end
 
 	def legacy_oauth
-		unless current_user && current_user.legacy then redirect_to root_path end
+		unless current_user && current_user.legacy then redirect_with_https root_path end
 		begin
 			code = RestClient.get('https://s5.studentrnd.org/api/oauth/exchange', {:params => {:code => params[:code], :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}})
 			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', {:params => {:access_token => code, :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}}))
@@ -59,14 +59,14 @@ class MainController < ApplicationController
 													:judge => judge)
 
 			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
-			redirect_to root_path
+			redirect_with_https root_path
 		rescue => e
 			if Rails.env.development?
 				flash[:error] = e.inspect
 			else
 				flash[:error] = "Error linking s5 and Teams account"
 			end
-			redirect_to legacy_path
+			redirect_with_https legacy_path
 		end
 	end
 
@@ -107,12 +107,12 @@ class MainController < ApplicationController
 
 				session[:current_user_id] = user.id
 			end
-			redirect_to root_path
+			redirect_with_https root_path
 		rescue => e
 			if Rails.env.development?
 				flash[:error] = e.inspect
 			end
-			redirect_to login_path
+			redirect_with_https login_path
 		end
 	end
 end

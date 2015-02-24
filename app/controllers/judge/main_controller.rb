@@ -10,7 +10,7 @@ class Judge::MainController < ApplicationController
       if current_user && current_user.judge
         return true
       else
-        redirect_to root_path
+        redirect_with_https root_path
       end
     end
 end

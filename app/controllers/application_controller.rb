@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_user, :handle_errors, :ctf_hook, :http_get, :current_batch, :current_teams, :current_awards, :current_user_team
+  helper_method :current_user, :handle_errors, :ctf_hook, :http_get, :current_batch, :current_teams, :current_awards, :current_user_team, :redirect_with_https
   before_filter :cloudflare_https
   before_filter :check_legacy
 
@@ -58,11 +58,19 @@ class ApplicationController < ActionController::Base
     return Award.where(query)
   end
 
+  def redirect_with_https(path)
+    if Rails.env.production
+      redirect_with_https "https://#{path}"
+    else
+      redirect_with_https path
+    end
+  end
+
   private
     def check_legacy
       if current_user && current_user.legacy
         unless request.path == legacy_path || request.path == legacy_oauth_path
-          redirect_to legacy_path
+          redirect_with_https legacy_path
         end
       end
     end
@@ -71,7 +79,7 @@ class ApplicationController < ActionController::Base
       if Rails.env.production?
         visitor = JSON.parse(request.headers["CF-Visitor"])
         if visitor["scheme"] == "http"
-          redirect_to "https://#{request.host}#{request.fullpath}"
+          redirect_with_https "https://#{request.host}#{request.fullpath}"
         end
       end
     end
