@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_with_https(path)
     if Rails.env.production?
-      redirect_to :protocol => "https://", path
+      redirect_to path, :protocol => "https://"
     else
       redirect_to path
     end
