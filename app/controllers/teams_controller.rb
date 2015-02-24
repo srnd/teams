@@ -30,7 +30,6 @@ class TeamsController < ApplicationController
 
 	def join_team
 		if Team.where(:code => params[:team][:code], :batch_id => current_batch.id).first
-			ctf_hook({:event => "join", :id => current_user.id, :team_id => Team.where(:code => params[:team][:code]).first.id})
 			current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_to root_path
 		else
@@ -56,7 +55,6 @@ class TeamsController < ApplicationController
 			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id], :batch_id => current_batch.id)
 			if team.valid?
 				team.users << current_user
-				ctf_hook(:event => "create", :id => team.id, :user_id => current_user.id, :name => team.name)
 				redirect_to teams_code_path
 			else
 				flash[:error] = handle_errors(team.errors.full_messages)
@@ -89,10 +87,8 @@ class TeamsController < ApplicationController
 
 	def leave
 		team = current_user_team
-		ctf_hook({:event => "leave", :id => current_user.id})
 		team.users.delete(current_user)
 		if team.users.count == 1
-			ctf_hook({:event => "delete", :thing => "team", :id => team.id})
 			team.destroy
 		end
 		redirect_to root_path
