@@ -1,0 +1,17 @@
+<h1>Slack Integration</h1>
+You can integrate <a href="https://slack.com">Slack</a> with CodeDay Teams to view your progress and
+team activity on your Slack chat.
+
+<h2>Integrate Slack</h2>
+
+<h3>Create an Incoming Webhook</h3>
+
+Go to <a href="https://my.slack.com/services/new">your team's integration page</a> and create a new
+Outgoing WebHook integration.<br><br>
+
+Once you created the integration, get the token and enter it here:<br><br>
+
+<%= form_for(@team, url: integration_slack_path) do |t| %>
+  <%= t.text_field :slack_token, :placeholder => "Token" %>
+  <button>Update Token</button>
+<% end %>

@@ -1,4 +1,6 @@
 class MainController < ApplicationController
+	protect_from_forgery :except => [:slack_hook]
+
 	def index
 		@title = "Welcome"
 	end
@@ -72,6 +74,15 @@ class MainController < ApplicationController
 
 	def hall_of_fame
 		@title = "Hall of Fame"
+	end
+
+	def slack_hook
+		team = Team.find(params[:id])
+		if team && params[:token] && team.slack_token == params[:token]
+			render json: {text: "It works!"}
+		else
+			render json: {success: false}
+		end
 	end
 
 	def s5

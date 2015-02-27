@@ -159,13 +159,17 @@ footer{
 
 a{
     color: $codeday-link;
+    &.no-style{
+      color: initial;
+      text-decoration: none;
+    }
 
     &:hover:not(.gray){
-        color: $codeday-link-hover;
+      color: $codeday-link-hover;
     }
 
     &.gray{
-        color: $codeday-link-gray;
+      color: $codeday-link-gray;
     }
 }
 

@@ -1,36 +1,44 @@
 Rails.application.routes.draw do
   root 'main#index'
 
-  get '/login' => 'users#login'
-  post '/login' => 'users#post_login'
-
   get '/oauth/s5' => 'main#s5'
-
   get '/logout' => 'users#logout'
-
   get '/me' => 'users#me'
+  get '/hall_of_fame' => 'main#hall_of_fame'
 
-  get '/teams/code' => 'teams#code'
-  get '/teams/join' => 'teams#join'
-  post '/teams/join' => 'teams#join_team'
-  get '/teams/leave' => 'teams#leave'
-  post '/teams/project' => 'teams#save_project'
+  scope 'teams', as: 'teams' do
+    get '/code' => 'teams#code'
+    get '/join' => 'teams#join'
+    post '/join' => 'teams#join_team'
+    get '/leave' => 'teams#leave'
+    post '/project' => 'teams#save_project'
+  end
+
   get '/teams/batch/:batch_id/event/:id' => 'teams#event', as: 'event'
   get '/teams/batch/:id' => 'teams#batch', as: 'batch'
 
-  get '/register' => 'users#register'
-  post '/register' => 'users#post_register'
+  scope 'login', as: 'login' do
+    get '/' => 'users#login'
+    post '/' => 'users#post_login'
+    get '/manual' => 'main#manual_login', as: 'manual'
+    post '/manual' => 'main#manual_login'
+  end
 
-  get '/login/manual' => 'main#manual_login', as: 'manual_login'
-  post '/login/manual' => 'main#manual_login'
+  scope 'register', as: 'register' do
+    get '/' => 'users#register'
+    post '/' => 'users#post_register'
+  end
 
-  get '/api/me' => 'users#api_me'
-  get '/api/exchange' => 'main#exchange_token'
+  scope 'api', as: 'api' do
+    get '/me' => 'users#api_me'
+    get '/exchange' => 'main#exchange_token'
+    post '/slack/:id' => 'main#slack_hook'
+  end
 
-  get '/legacy' => 'main#legacy'
-  get '/legacy/oauth' => 'main#legacy_oauth'
-
-  get '/hall_of_fame' => 'main#hall_of_fame'
+  scope 'legacy', as: 'legacy' do
+    get '/' => 'main#legacy'
+    get '/oauth' => 'main#legacy_oauth'
+  end
 
   namespace :judge do
     root 'main#index'
@@ -47,6 +55,12 @@ Rails.application.routes.draw do
     get '/awards' => 'main#awards', as: 'awards'
     get '/scramble' => 'main#scramble', as: 'scramble'
     post '/inject' => 'main#inject', as: 'inject'
+  end
+
+  namespace :integration do
+    root 'main#index'
+    get '/slack' => 'slack#index'
+    patch '/slack' => 'slack#update_token'
   end
 
   resources :teams

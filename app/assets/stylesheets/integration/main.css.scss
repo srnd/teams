@@ -1,0 +1,17 @@
+.integration{
+  text-align: center;
+
+  .integration-image{
+    height: 200px;
+    width: 200px;
+    background-size: 190px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    float: center;
+    display: inline-block;
+  }
+
+  .integration-name{
+    font-size: 2em;
+  }
+}
