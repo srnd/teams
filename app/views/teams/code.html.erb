@@ -1,5 +1,6 @@
 <h1>My Team</h1>
 <h2><%= @team.name %></h2>
+<a href="<%= integration_root_path %>">View Integrations</a><br><br>
 Project Name: <input id="project" value="<%= @team.project %>"></input> <button id="saveproject">Save</button>
 <ul>
 	<% @team.users.each do |user| %>

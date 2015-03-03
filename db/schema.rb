@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226230233) do
+ActiveRecord::Schema.define(version: 20150227041628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150226230233) do
     t.integer  "event_id"
     t.integer  "batch_id"
     t.string   "slack_token"
+    t.string   "slack_webhook_url"
   end
 
   create_table "teams_users", id: false, force: true do |t|

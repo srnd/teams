@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   scope 'api', as: 'api' do
     get '/me' => 'users#api_me'
     get '/exchange' => 'main#exchange_token'
-    post '/slack/:id' => 'main#slack_hook'
+    post '/slack/:id' => 'main#slack_hook', as: 'slack_hook'
   end
 
   scope 'legacy', as: 'legacy' do

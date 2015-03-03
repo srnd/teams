@@ -6,6 +6,7 @@ class Team < ActiveRecord::Base
 
 	validates :name, :presence => true
 	validates :event_id, :presence => true
+	validates :slack_webhook_url, :format => {:with => URI.regexp}
 
 	def api_filter
 		return {
@@ -14,5 +15,15 @@ class Team < ActiveRecord::Base
 			:event_id => self.event_id,
 			:project => self.project
 		}
+	end
+
+	def hook_slack(data = {})
+		if self.slack_webhook_url
+			data[:fallback] ||= "[CodeDay Teams attachment here]"
+			data[:color] ||= "success"
+			data[:fields] ||= []
+
+			http_post("https://hooks.slack.com", URI(self.slack_webhook_url).path, JSON[data])
+		end
 	end
 end
