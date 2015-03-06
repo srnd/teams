@@ -76,18 +76,22 @@ body{
 }
 
 .content{
-    width: $content-width;
+    max-width: $content-width;
     margin: 0 auto;
     margin-top: $page-margin;
     margin-bottom: $page-margin;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 header{
-    width: $content-width;
+    max-width: $content-width;
     margin: 0 auto;
     margin-top: $page-margin + 5px;
     padding-bottom: $page-margin;
     border-bottom: 1px solid $section-border-color;
+    padding-left: 10px;
+    padding-right: 10px;
 
     &:after{
         content: "";
@@ -98,12 +102,52 @@ header{
     }
 
     nav{
+
         padding-left: 3rem;
         display: block;
         padding-top: 0.3rem;
 
         nav-right{
             float: right;
+        }
+
+        @media only screen and (max-width: 480px){
+          nav-right{
+            transition: height .5s;
+            -webkit-transition: height .5s;
+            -moz-transition: height .5s;
+
+            &::before{
+              content: "Show Navbar";
+              visibility: initial;
+              float: right;
+              bottom: 10px;
+              position: relative;
+              color: black;
+            }
+
+            &:hover{
+              height: initial;
+              visibility: initial;
+            }
+
+            text-align: center;
+            visibility: hidden;
+            height: 0px;
+            margin-top: 10px;
+
+            a{
+              display: block;
+              width: 100%;
+              margin-bottom: 3px;
+
+              &::after{
+                content: "" !important;
+                padding: 0 !important;
+                padding-right: 10px !important;
+              }
+            }
+          }
         }
 
         a{
@@ -144,11 +188,13 @@ header{
 }
 
 footer{
-    width: $content-width;
+    max-width: $content-width;
     margin: 0 auto;
     padding-top: $page-margin;
     margin-bottom: $page-margin + 5px;
     border-top: 1px solid $section-border-color;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .impact{

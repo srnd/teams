@@ -1,0 +1,19 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'test', 'gg' ]
+2 info using npm@2.6.0
+3 info using node@v0.10.25
+4 verbose node symlink /usr/bin/node
+5 verbose config Skipping project config: /home/tj/.npmrc. (matches userconfig)
+6 verbose stack Error: ENOENT, open '/home/tj/package.json'
+7 verbose cwd /home/tj/teams
+8 error Linux 3.13.0-32-generic
+9 error argv "node" "/usr/local/bin/npm" "test" "gg"
+10 error node v0.10.25
+11 error npm  v2.6.0
+12 error path /home/tj/package.json
+13 error code ENOENT
+14 error errno 34
+15 error enoent ENOENT, open '/home/tj/package.json'
+15 error enoent This is most likely not a problem with npm itself
+15 error enoent and is related to npm not being able to find a file.
+16 verbose exit [ 34, true ]
