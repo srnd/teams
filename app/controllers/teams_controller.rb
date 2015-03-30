@@ -30,7 +30,9 @@ class TeamsController < ApplicationController
 
 	def join_team
 		if Team.where(:code => params[:team][:code], :batch_id => current_batch.id).first
-			Team.where(:code => params[:team][:code]).first.users << current_user
+			team = Team.where(:code => params[:team][:code]).first
+			team.users << current_user
+			team.hook_slack({:text => "<#{request.protocol}#{request.host_with_port}#{user_path(current_user)}|#{current_user.name}> has joined the team!"})
 			# current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_with_https root_path
 		else
@@ -75,7 +77,7 @@ class TeamsController < ApplicationController
 				@teams.each do |t|
 					json_teams.push(t.api_filter)
 				end
-				render json: {:teams => json_teams}
+				render json: api_success({:teams => json_teams})
 			}
 
 			m.html {
@@ -98,7 +100,7 @@ class TeamsController < ApplicationController
 	def save_project
 		params.require(:name)
 		current_user_team.update(:project => params[:name])
-		render json: {:success => true}
+		render json: api_success
 	end
 
 	private

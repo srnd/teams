@@ -4,7 +4,7 @@ team activity on your Slack chat.
 
 <h2>Integrate Slack</h2>
 
-<h3>Create an Incoming WebHook</h3>
+<h3>Create an Outgoing WebHook</h3>
 
 Go to <a href="https://my.slack.com/services/new">your team's integration page</a> and create a new
 Outgoing WebHook integration.<br><br>
@@ -16,14 +16,21 @@ Once you created the integration, get the token and enter it here:<br><br>
   <button>Update Token</button>
 <% end %>
 
-<h3>Set Up the WebHook</h3>
+<h4>Set Up the WebHook</h4>
 
 Once you have entered your token above, put this URL in the URLs section on the WebHook:<br>
 <code><%= request.protocol %><%= request.host_with_port %><%= api_slack_hook_path @team %></code><br><br>
 
 Set the trigger word to whatever you want, although we do recommend setting it to "teams".
 
+<h3>Create an Incoming WebHook</h3>
+
+Go to <a href="https://my.slack.com/services/new">your team's integration page</a> and create a new
+Incoming WebHook integration.<br><br>
+
+Once you have created the integration, get the URL and enter it here:<br><br>
+
 <%= form_for(@team, url: integration_slack_path) do |t| %>
-  <%= t.text_field :slack_token, :placeholder => "Token" %>
-  <button>Update Token</button>
+  <%= t.text_field :slack_webhook_url, :placeholder => "Slack URL" %>
+  <button>Update URL</button>
 <% end %>

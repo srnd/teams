@@ -14,9 +14,9 @@ class User < ActiveRecord::Base
 
 	def authenticate(password)
 		if Digest::MD5.hexdigest(Digest::MD5.hexdigest(password) + self.salt) == self.password
-			return true
+			true
 		else
-			return false
+			false
 		end
 	end
 
@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 	end
 
 	def current_team
-		return self.teams.where(:batch_id => Batch.where(:current => true).first.id).first
+		self.teams.where(:batch_id => Batch.where(:current => true).first.id).first
 	end
 
 	def set_password(password)
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
 	end
 
 	def api_filter
-		return {
+		{
 			:id => self.id,
 			:username => self.username,
 			:name => self.name,

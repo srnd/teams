@@ -2,22 +2,46 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_user, :handle_errors, :ctf_hook, :current_batch, :current_teams, :current_awards, :current_user_team, :redirect_with_https
+  helper_method ([
+    :current_user,
+    :handle_errors,
+    :ctf_hook,
+    :current_batch,
+    :current_teams,
+    :current_awards,
+    :current_user_team,
+    :redirect_with_https,
+    :api_error,
+    :api_success
+  ])
   before_filter :cloudflare_https
   before_filter :check_legacy
 
   def current_user
   	if session[:current_user_id]
       begin
-    		return User.find(session[:current_user_id])
+    		User.find(session[:current_user_id])
       rescue
         session[:current_user_id]
         flash[:message] = "You have been signed due to an invalid session"
-        return nil
+        nil
       end
   	else
-  		return nil
+  		nil
   	end
+  end
+
+  def api_error(message = "Generic Error")
+    {
+      :success => false,
+      :message => message
+    }
+  end
+
+  def api_success(hash = {})
+    hash.merge({
+      :success => true
+    })
   end
 
   def handle_errors(messages)

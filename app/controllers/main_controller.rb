@@ -6,9 +6,7 @@ class MainController < ApplicationController
 	end
 
 	def manual_login
-		unless Rails.env == "development"
-			redirect_with_https root_path
-		end
+		redirect_with_https root_path unless Rails.env == "development"
 		@title = "Manual Login"
 		if params[:user]
 			session[:current_user_id] = User.where(:username => params[:user][:username]).first.id
@@ -21,9 +19,9 @@ class MainController < ApplicationController
 		params.require(:secret)
 		app = Application.where(:secret => params[:secret]).first
 		if app.is_a? Application
-			render json: {:token => Token.exchange(app, params[:access_token])}
+			render json: api_success({:token => Token.exchange(app, params[:access_token])})
 		else
-			render json: {:token => "no"}
+			render json: api_error("no")
 		end
 	end
 
@@ -79,9 +77,9 @@ class MainController < ApplicationController
 	def slack_hook
 		team = Team.find(params[:id])
 		if team && params[:token] && team.slack_token == params[:token]
-			render json: {text: "It works!"}
+			render json: api_success({:text => "It works!"})
 		else
-			render json: {success: false}
+			render json: api_error
 		end
 	end
 

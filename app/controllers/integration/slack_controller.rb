@@ -7,8 +7,11 @@ class Integration::SlackController < Integration::MainController
   end
 
   def update_token
-    current_user.current_team.update(:slack_token => params[:team][:slack_token])
-    flash[:message] = "Token Updated"
+    team = current_user.current_team
+    team.slack_webhook_url ||= params[:team][:slack_webhook_url]
+    team.slack_token ||= params[:team][:slack_token]
+    team.save
+    flash[:message] = "Slack updated"
     redirect_with_https integration_slack_path
   end
 end
