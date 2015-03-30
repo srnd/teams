@@ -89,9 +89,9 @@ class TeamsController < ApplicationController
 	end
 
 	def leave
-		team = current_user_team
+		team = current_user.current_team
 		team.users.delete(current_user)
-		if team.users.count == 1
+		if team.users.count == 0
 			team.destroy
 		end
 		redirect_with_https root_path
