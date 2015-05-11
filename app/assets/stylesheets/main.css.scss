@@ -287,7 +287,25 @@ a{
     }
 }
 
-@-keyframes colorpulse{
+@keyframes colorpulse{
+    0%{
+        background: rgb(11,192,194);
+    }
+
+    25%{
+        background: rgb(248,99,243);
+    }
+
+    50%{
+        background: rgb(252,88,67);
+    }
+
+    100%{
+        background: rgb(11,192,194);
+    }
+}
+
+@-moz-keyframes colorpulse{
     0%{
         background: rgb(11,192,194);
     }
@@ -309,6 +327,7 @@ s5-button{
     display: inline-block;
     -webkit-animation: colorpulse 10s infinite;
     animation: colorpulse 10s infinite;
+    -moz-animation: colorpulse 10s infinite;
     border: 1px solid rgba(255, 255, 255, 0.5);
     background-color: transparent;
     margin: 0;

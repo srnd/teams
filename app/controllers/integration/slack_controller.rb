@@ -2,6 +2,7 @@ class Integration::SlackController < Integration::MainController
   protect_from_forgery :except => [:update_token, :hook]
 
   def index
+    redirect_with_https root_path
     @title = "Slack Integration"
     @team = current_user.current_team
   end

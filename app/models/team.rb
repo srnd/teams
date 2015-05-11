@@ -6,7 +6,7 @@ class Team < ActiveRecord::Base
 
 	validates :name, :presence => true
 	validates :event_id, :presence => true
-	validates :slack_webhook_url, :format => {:with => URI.regexp}
+	# validates :slack_webhook_url, :format => {:with => URI.regexp}
 
 	def hook_slack(data = {})
 		if self.slack_webhook_url
