@@ -41,7 +41,7 @@ class Admin::MainController < ApplicationController
     Event.all.each do |event|
       # seed the awards
       awards.each do |award|
-        Award.create(:batch => current_batch, :event => event, :name => award)
+        Award.create(:batch => current_batch, :event_id => event.id, :name => award)
       end
     end
     redirect_to admin_root_path
