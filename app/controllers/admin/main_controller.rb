@@ -35,6 +35,18 @@ class Admin::MainController < ApplicationController
     redirect_with_https admin_event_path
   end
 
+  def seed_awards
+    awards = ["Top Overall", "Best App", "Best Game", "Special Award 1", "Special Award 2", "0-to-60"]
+    # get all events
+    Event.all.each do |event|
+      # seed the awards
+      awards.each do |award|
+        Award.create(:batch => current_batch, :event => event, :name => award)
+      end
+    end
+    redirect_to admin_root_path
+  end
+
   def scramble
     @title = "Scrambled Teams"
     @teams = current_teams(:event_id => current_user.event_id).order("RANDOM()")

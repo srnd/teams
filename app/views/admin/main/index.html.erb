@@ -2,6 +2,23 @@
 
 <%= render "admin/buttons" %>
 
+<h2 style="margin-top: 0">Seed Awards</h2>
+
+<p>
+  Create awards for each event this season. Please only use this ONCE per season.
+  Someone probably already clicked this when they created the season model for
+  this season.
+</p>
+
+<p>
+  Seriously, <b>please do not click this link unless you are extremely sure that
+  you are supposed to click it</b>.
+</p>
+
+<p>
+  <%= link_to "Seed Awards", admin_seed_awards_path %>
+</p>
+
 <h2 style="margin-top: 0">Inject JavaScript</h2>
 This tool allows you to inject JavaScript into all users' browsers.<br>
 Useful for a force refresh or displaying a message.<br><br>

@@ -8,7 +8,7 @@ class Award < ActiveRecord::Base
       :name => self.name,
       :description => self.description,
       :team => self.team.api_filter,
-      :event => self.event.api_filter,
+      :event => self.event.api_filter
     }
   end
 end

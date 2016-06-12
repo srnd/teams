@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/superadmin', as: 'rails_admin'
   root 'main#index'
 
   get '/oauth/s5' => 'main#s5'
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
     get '/event' => 'main#event', as: 'event'
     get '/batch' => 'main#batch', as: 'batch'
     get '/awards' => 'main#awards', as: 'awards'
+    get '/awards/seed' => 'main#seed_awards', as: 'seed_awards'
     get '/scramble' => 'main#scramble', as: 'scramble'
     post '/inject' => 'main#inject', as: 'inject'
   end

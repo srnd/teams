@@ -78,11 +78,12 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_with_https(path)
-    if Rails.env.production?
-      redirect_to path, :protocol => "https://"
-    else
-      redirect_to path
-    end
+    redirect_to path # cloudflare will handle it
+    # if Rails.env.production?
+    #   redirect_to path, :protocol => "https://"
+    # else
+    #   redirect_to path
+    # end
   end
 
   private
