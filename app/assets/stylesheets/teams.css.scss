@@ -1,3 +1,14 @@
-// Place all the styles related to the teams controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.award{
+  color: #d08e4b;
+  font-weight: bold;
+  display: inline-block;
+  width: 33%;
+  padding-top: 87px;
+  padding-bottom: 132px;
+  padding-left: 68px;
+  background: url(trophy.svg);
+  background-size: 250px 250px;
+  background-repeat: no-repeat;
+  background-position: center 0;
+  text-align: center;
+}

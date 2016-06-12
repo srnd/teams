@@ -1,0 +1,35 @@
+<h1>Edit <%= @team.name %></h1>
+
+<%= form_for @team do |form| %>
+  <h2>Team Notes</h2>
+
+  <p>
+    This will show up below the awards on the team page. Usually, you would put
+    appraisal of what they did good, and what you think they could improve on.
+    You can use Markdown in this field.
+  </p>
+
+  <p>
+    Some things we suggest adding:
+
+    <ul>
+      <li>
+        Team photos (if any)
+        <ul>
+          <li>Photos can be added like this: <code>![Image alt](Image URL)</code></li>
+        </ul>
+      </li>
+      <li>A reasoning for why this team got each award (if any)</li>
+      <li>"Why this team did good"</li>
+      <li>"What this team can improve on"</li>
+    </ul>
+  </p>
+
+  <p>
+    <%= form.text_area :extra, cols: 40, rows: 10 %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

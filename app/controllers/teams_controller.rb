@@ -10,6 +10,18 @@ class TeamsController < ApplicationController
 		render :index
 	end
 
+	def edit
+		unless current_user.admin then redirect_to root_path end
+		@team = Team.find(params[:id])
+		@title = "Edit #{@team.name}"
+	end
+
+	def update
+		unless current_user.admin then redirect_to root_path end
+		Team.find(params[:id]).update(:extra => params[:team][:extra])
+		redirect_to Team.find(params[:id])
+	end
+
 	def show
 		@team = Team.find(params[:id])
 		@title = @team.name

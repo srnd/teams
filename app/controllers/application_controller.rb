@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
       begin
     		User.find(session[:current_user_id])
       rescue
-        session[:current_user_id]
-        flash[:message] = "You have been signed due to an invalid session"
+        session[:current_user_id] = nil
+        flash[:message] = "You have been signed out due to an invalid session"
         nil
       end
   	else
