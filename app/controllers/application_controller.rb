@@ -95,11 +95,11 @@ class ApplicationController < ActionController::Base
     end
 
     def cloudflare_https
-      if Rails.env.production?
-        visitor = JSON.parse(request.headers["CF-Visitor"])
-        if visitor["scheme"] == "http"
-          redirect_to :protocol => "https://"
-        end
-      end
+      # if Rails.env.production?
+      #   visitor = JSON.parse(request.headers["CF-Visitor"])
+      #   if visitor["scheme"] == "http"
+      #     redirect_to :protocol => "https://"
+      #   end
+      # end
     end
 end
