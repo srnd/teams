@@ -12,3 +12,84 @@
   background-position: center 0;
   text-align: center;
 }
+
+@-webkit-keyframes subtle-background-in{
+  0%{
+    background-size: 120%;
+  }
+
+  100%{
+    background-size: 100%;
+  }
+}
+
+@-webkit-keyframes subtle-background-in-team-image{
+  0%{
+    background-size: 200px 200px;
+  }
+
+  100%{
+    background-size: 150px 150px;
+  }
+}
+
+.team-header{
+  color: white;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  width: 100%;
+  text-align: center;
+  background: url("https://srnd.org/assets/img/press/assets/codeday/13.jpg");
+  background-position: center -200px;
+  text-shadow: 0px 0px 19px #000;
+  background-size: 100%;
+  position: relative;
+  -webkit-animation: subtle-background-in 1s backwards;
+
+  .team-header-inner{
+    z-index: 5;
+    position: relative;
+  }
+
+  &::after{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  h1{
+    text-transform: uppercase;
+  }
+}
+
+.team-member{
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 10px;
+
+  .team-member-image{
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 100%;
+    background-size: 150px 150px;
+    background-position: center center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    -webkit-animation: subtle-background-in-team-image 1s backwards;
+  }
+
+  .team-member-name{
+    margin-top: 10px;
+  }
+}
+
+.team-members, .team-awards, .center{
+  text-align: center;
+}

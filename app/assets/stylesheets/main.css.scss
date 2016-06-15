@@ -94,13 +94,26 @@ body{
   }
 }
 
-.content{
+body:not(.full-content-width) .content{
   max-width: $content-width;
   margin: 0 auto;
   margin-top: $page-margin;
   margin-bottom: $page-margin;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+body.full-content-width .content{
+  max-width: 100%;
+
+  .content-inner{
+    max-width: $content-width;
+    margin: 0 auto;
+    margin-top: $page-margin;
+    margin-bottom: $page-margin;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .material-wrapper{

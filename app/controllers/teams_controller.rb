@@ -25,6 +25,7 @@ class TeamsController < ApplicationController
 	def show
 		@team = Team.find(params[:id])
 		@title = @team.name
+		@extra_body_class = "full-content-width"
 	end
 
 	def code
@@ -44,7 +45,7 @@ class TeamsController < ApplicationController
 		if Team.where(:code => params[:team][:code], :batch_id => current_batch.id).first
 			team = Team.where(:code => params[:team][:code]).first
 			team.users << current_user
-			team.hook_slack({:text => "<#{request.protocol}#{request.host_with_port}#{user_path(current_user)}|#{current_user.name}> has joined the team!"})
+			# team.hook_slack({:text => "<#{request.protocol}#{request.host_with_port}#{user_path(current_user)}|#{current_user.name}> has joined the team!"})
 			# current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
 			redirect_with_https root_path
 		else

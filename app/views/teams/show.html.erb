@@ -1,32 +1,53 @@
-<h1><%= @team.name %></h1>
-This team is working on <%= @team.project || "nothing" %>.<br>
-This team is based at CodeDay <%= @team.event.city %>.
+<div class="team-header">
+	<div class="team-header-inner animated fadeInUp">
+		<h1><%= @team.name %></h1>
+		<p><%= @team.project %> // CodeDay <%= "#{@team.event.city} #{@team.batch.name}" %></p>
+	</div>
+</div>
 
-<% if current_user && current_user.admin %>
-	<p>
-		<%= link_to "Edit Team", edit_team_path(@team) %>
-	</p>
-<% end %>
-
-<ul>
-	<% @team.users.each do |user| %>
-		<li><%= link_to user.name, user %></li>
+<div class="content-inner">
+	<% if current_user && current_user.admin %>
+		<!-- <p>
+			<%= link_to "Edit Team", edit_team_path(@team) %>
+		</p> -->
 	<% end %>
-</ul>
 
-<% if current_batch.awards_shown %>
-	<h2>Awards</h2>
+	<h2 class="center">Team Members</h2>
 
-	<% @team.awards.each do |award| %>
-		<div class="award">
-			<%= award.name %>
+	<div class="team-members">
+		<% @team.users.each do |user, index| %>
+			<div class="team-member animated fadeInUp">
+				<div class="team-member-image" style="background-image: url(https://s5.studentrnd.org/photo/<%= user.s5_username %>_128.jpg?new)"></div>
+				<div class="team-member-name">
+					<%= user.name %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+
+	<!-- <ul>
+		<% @team.users.each do |user| %>
+			<li><%= link_to user.name, user %></li>
+		<% end %>
+	</ul> -->
+
+	<% if current_batch.awards_shown %>
+		<h2 class="center">Awards</h2>
+
+		<div class="team-awards">
+			<% @team.awards.each do |award| %>
+				<div class="award">
+					<%= award.name %>
+				</div>
+			<% end %>
 		</div>
+
+		<%= @team.extra_rendered.html_safe %>
+	<% else %>
+		<p>
+			Awards aren't shown yet for this season, wait until the event is over to
+			see who got what awards!
+		</p>
 	<% end %>
 
-	<%= @team.extra_rendered.html_safe %>
-<% else %>
-	<p>
-		Awards aren't shown yet for this season, wait until the event is over to
-		see who got what awards!
-	</p>
-<% end %>
+</div>

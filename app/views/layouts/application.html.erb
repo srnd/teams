@@ -12,7 +12,7 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= @extra_body_class %>">
 	<div class="material-wrapper">
 		<header>
 			<!-- <codeday-logo></codeday-logo> -->
@@ -60,7 +60,7 @@
 		<%= yield %>
 	</div>
 	<footer>
-		&copy; StudentRND 2015
+		&copy; StudentRND The Future
 		<% if Rails.env == "development" %>
 			- <%= link_to "Manual Login", login_manual_path %>
 		<% end %>
