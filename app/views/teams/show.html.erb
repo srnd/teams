@@ -19,7 +19,7 @@
 			<div class="team-member animated fadeInUp">
 				<div class="team-member-image" style="background-image: url(https://s5.studentrnd.org/photo/<%= user.s5_username %>_128.jpg?new)"></div>
 				<div class="team-member-name">
-					<%= user.name %>
+					<%= link_to user.name, user %>
 				</div>
 			</div>
 		<% end %>
