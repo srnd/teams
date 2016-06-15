@@ -1,15 +1,22 @@
-<div class="team-header">
+<div class="team-header" style="<%= if @team.team_photo_url && @team.team_photo_url != "" then "background-image: url(#{@team.team_photo_url})" end %>">
 	<div class="team-header-inner animated fadeInUp">
 		<h1><%= @team.name %></h1>
-		<p><%= @team.project %> // CodeDay <%= "#{@team.event.city} #{@team.batch.name}" %></p>
+		<p>
+			<%= @team.project %> // CodeDay <%= "#{@team.event.city} #{@team.batch.name}" %>
+			<% if current_user && current_user.admin %>
+				// <%= link_to "Edit", edit_team_path(@team) %>
+			<% end %>
+		</p>
 	</div>
 </div>
 
 <div class="content-inner">
-	<% if current_user && current_user.admin %>
-		<!-- <p>
-			<%= link_to "Edit Team", edit_team_path(@team) %>
-		</p> -->
+	<% if @team.project_description && @team.project_description != "" %>
+		<h2>Project Description</h2>
+
+		<div class="team-description">
+			<%= @team.description_rendered.html_safe %>
+		</div>
 	<% end %>
 
 	<h2 class="center">Team Members</h2>
@@ -35,10 +42,14 @@
 		<h2 class="center">Awards</h2>
 
 		<div class="team-awards">
-			<% @team.awards.each do |award| %>
-				<div class="award">
-					<%= award.name %>
-				</div>
+			<% if @team.awards.count == 0 %>
+				This team didn't receive any awards this CodeDay.
+			<% else %>
+				<% @team.awards.each do |award| %>
+					<div class="award">
+						<%= award.name %>
+					</div>
+				<% end %>
 			<% end %>
 		</div>
 

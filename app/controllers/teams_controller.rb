@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
 
 	def update
 		unless current_user.admin then redirect_to root_path end
-		Team.find(params[:id]).update(:extra => params[:team][:extra])
+		Team.find(params[:id]).update(:extra => params[:team][:extra], :team_photo_url => params[:team][:team_photo_url])
 		redirect_to Team.find(params[:id])
 	end
 
@@ -111,8 +111,8 @@ class TeamsController < ApplicationController
 	end
 
 	def save_project
-		params.require(:name)
-		current_user_team.update(:project => params[:name])
+		params.require(:project).permit(:name, :description)
+		current_user_team.update(:project => params[:project][:name], :project_description => params[:project][:description])
 		render json: api_success
 	end
 

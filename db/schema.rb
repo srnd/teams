@@ -11,90 +11,93 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612062651) do
+ActiveRecord::Schema.define(version: 20160615043436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applications", force: true do |t|
-    t.string   "name"
+  create_table "applications", force: :cascade do |t|
+    t.string   "name",           limit: 255
     t.integer  "user_id"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "appid"
-    t.string   "secret"
-    t.string   "oauth_callback"
+    t.string   "appid",          limit: 255
+    t.string   "secret",         limit: 255
+    t.string   "oauth_callback", limit: 255
   end
 
-  create_table "awards", force: true do |t|
-    t.string   "name"
+  create_table "awards", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.integer  "team_id"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "batch_id"
     t.integer  "event_id"
-    t.string   "notes"
+    t.string   "notes",       limit: 255
   end
 
-  create_table "batches", force: true do |t|
-    t.string   "name"
+  create_table "batches", force: :cascade do |t|
+    t.string   "name",         limit: 255
     t.boolean  "current"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "awards_shown"
   end
 
-  create_table "events", force: true do |t|
-    t.string   "city"
+  create_table "events", force: :cascade do |t|
+    t.string   "city",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "region_webname"
+    t.string   "region_webname", limit: 255
   end
 
-  create_table "teams", force: true do |t|
-    t.string   "name"
-    t.string   "code"
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",                limit: 255
+    t.string   "code",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "project"
+    t.string   "project",             limit: 255
     t.integer  "event_id"
     t.integer  "batch_id"
-    t.string   "slack_token"
-    t.string   "slack_webhook_url"
+    t.string   "slack_token",         limit: 255
+    t.string   "slack_webhook_url",   limit: 255
     t.text     "extra"
+    t.text     "project_description"
+    t.string   "project_url"
+    t.string   "team_photo_url"
   end
 
-  create_table "teams_users", id: false, force: true do |t|
+  create_table "teams_users", id: false, force: :cascade do |t|
     t.integer "team_id", null: false
     t.integer "user_id", null: false
   end
 
-  create_table "tokens", force: true do |t|
-    t.string   "access_token"
+  create_table "tokens", force: :cascade do |t|
+    t.string   "access_token",   limit: 255
     t.integer  "user_id"
     t.integer  "application_id"
-    t.string   "token_string"
+    t.string   "token_string",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "username"
+  create_table "users", force: :cascade do |t|
+    t.string   "username",    limit: 255
     t.boolean  "admin"
-    t.string   "password"
+    t.string   "password",    limit: 255
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "salt"
+    t.string   "name",        limit: 255
+    t.string   "salt",        limit: 255
     t.boolean  "judge"
     t.integer  "event_id"
     t.boolean  "legacy"
-    t.string   "s5_username"
-    t.string   "email"
-    t.string   "s5_token"
+    t.string   "s5_username", limit: 255
+    t.string   "email",       limit: 255
+    t.string   "s5_token",    limit: 255
     t.boolean  "superadmin"
   end
 

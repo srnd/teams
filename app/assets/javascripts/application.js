@@ -47,11 +47,17 @@ Loader = (function(){
 (function(){
 	function ready(){
 		if($('#saveproject').length){
+			$('#saveproject').off('click');
 			$('#saveproject').click(function(){
 				$.ajax({
 					url: '/teams/project',
 					type: 'POST',
-					data: {name: $('#project').val()}
+					data: {
+						project: {
+							name: $('#project').val(),
+							description: $('#project_description').val()
+						}
+					}
 				});
 			});
 		}
@@ -75,6 +81,7 @@ Loader = (function(){
 
 	$(document).ajaxSuccess(function(){
 		Loader.done();
+		swal("", "Saved!", "success");
 	});
 
 	$(document).ajaxError(function(){

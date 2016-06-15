@@ -22,6 +22,10 @@ class Team < ActiveRecord::Base
 		$markdown.render(self.extra || "")
 	end
 
+	def description_rendered
+		$markdown.render(self.project_description)
+	end
+
 	def api_filter
 		{
 			:id => self.id,
