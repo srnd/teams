@@ -46,21 +46,25 @@ Loader = (function(){
 
 (function(){
 	function ready(){
-		if($('#saveproject').length){
-			$('#saveproject').off('click');
-			$('#saveproject').click(function(){
-				$.ajax({
-					url: '/teams/project',
-					type: 'POST',
-					data: {
-						project: {
-							name: $('#project').val(),
-							description: $('#project_description').val()
-						}
-					}
-				});
-			});
-		}
+		// if($('#saveproject').length){
+		// 	$('#saveproject').off('click');
+		// 	$('#saveproject').click(function(){
+		// 		$.ajax({
+		// 			url: '/teams/project',
+		// 			type: 'POST',
+		// 			data: {
+		// 				project: {
+		// 					name: $('#project').val(),
+		// 					description: $('#project_description').val()
+		// 				}
+		// 			}
+		// 		});
+		// 	});
+		// }
+
+		$("iframe").each(function(){
+      $(this).css("height", $(this).width() * 9/16);
+    });
 	}
 
 	if(window.io){

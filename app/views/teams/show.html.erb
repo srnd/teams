@@ -2,7 +2,7 @@
 	<div class="team-header-inner animated fadeInUp">
 		<h1><%= @team.name %></h1>
 		<p>
-			<%= @team.project %> // CodeDay <%= "#{@team.event.city} #{@team.batch.name}" %>
+			CodeDay <%= "#{@team.event.city} #{@team.batch.name}" %>
 			<% if current_user && current_user.admin %>
 				// <%= link_to "Edit", edit_team_path(@team) %>
 			<% end %>
@@ -11,54 +11,77 @@
 </div>
 
 <div class="content-inner">
-	<% if @team.project_description && @team.project_description != "" %>
-		<h2>Project Description</h2>
-
-		<div class="team-description">
-			<%= @team.description_rendered.html_safe %>
-		</div>
-	<% end %>
-
-	<h2 class="center">Team Members</h2>
-
-	<div class="team-members">
-		<% @team.users.each do |user, index| %>
-			<div class="team-member animated fadeInUp">
-				<div class="team-member-image" style="background-image: url(https://s5.studentrnd.org/photo/<%= user.s5_username %>_128.jpg?new)"></div>
-				<div class="team-member-name">
-					<%= link_to user.name, user %>
+	<div class="section group">
+		<div class="col span_2_of_3">
+			<% if @team.youtube_url && @team.youtube_url != "" %>
+				<div class="team-video">
+					<%= YouTubeAddy.youtube_embed_url(@team.youtube_url, "100%", "").html_safe %>
 				</div>
+			<% end %>
+
+			<div class="team-short-description">
+				<%= @team.short_description %>
 			</div>
-		<% end %>
-	</div>
 
-	<!-- <ul>
-		<% @team.users.each do |user| %>
-			<li><%= link_to user.name, user %></li>
-		<% end %>
-	</ul> -->
+			<% if @team.project_description && @team.project_description != "" %>
+				<div class="team-description">
+					<%= @team.description_rendered.html_safe %>
+				</div>
+			<% end %>
 
-	<% if current_batch.awards_shown %>
-		<h2 class="center">Awards</h2>
+			<!-- <ul>
+				<% @team.users.each do |user| %>
+					<li><%= link_to user.name, user %></li>
+				<% end %>
+			</ul> -->
 
-		<div class="team-awards">
-			<% if @team.awards.count == 0 %>
-				This team didn't receive any awards this CodeDay.
-			<% else %>
-				<% @team.awards.each do |award| %>
-					<div class="award">
-						<%= award.name %>
+			<!-- <% if current_batch.awards_shown %>
+				<%= @team.extra_rendered.html_safe %>
+			<% end %> -->
+		</div>
+		<div class="col span_1_of_3 team-section-right">
+			<h2 class="no-margin-top">Created By</h2>
+
+			<div class="team-members">
+				<% @team.users.each do |user, index| %>
+					<div class="team-member animated fadeInUp">
+						<div class="team-member-image" style="background-image: url(https://s5.studentrnd.org/photo/<%= user.s5_username %>_128.jpg?new)"></div>
+						<div class="team-member-name">
+							<%= link_to user.name, user %>
+						</div>
 					</div>
 				<% end %>
-			<% end %>
+			</div>
+
+			<h2>Awards</h2>
+
+			<div class="team-awards">
+				<% if @team.awards.count == 0 %>
+					This team didn't receive any awards this CodeDay.
+				<% else %>
+					<% @team.awards.each do |award| %>
+						<div class="award">
+							<%= award.name %>
+						</div>
+					<% end %>
+				<% end %>
+			</div>
+
+			<h2>Links</h2>
+
+			<div class="team-links">
+				<% if @team.download_url && @team.download_url != "" %>
+					<p>
+						<%= fa_icon "cloud-download" %> <%= link_to "Download", @team.download_url %>
+					</p>
+				<% end %>
+
+				<% if @team.website_url && @team.website_url != "" %>
+					<p>
+						<%= fa_icon "globe" %> <%= link_to "Website", @team.website_url %>
+					</p>
+				<% end %>
+			</div>
 		</div>
-
-		<%= @team.extra_rendered.html_safe %>
-	<% else %>
-		<p>
-			Awards aren't shown yet for this season, wait until the event is over to
-			see who got what awards!
-		</p>
-	<% end %>
-
+	</div>
 </div>

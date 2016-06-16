@@ -1,19 +1,65 @@
 <h1>My Team</h1>
-<h2><%= @team.name %></h2>
-<a href="<%= integration_root_path %>">View Integrations</a><br><br>
-Project Name: <input id="project" value="<%= @team.project %>"></input>
-<br><br>
-Project Description:
-<br>
-<%= text_area :project, :description, cols: 40, rows: 10, value: @team.project_description %>
-<br>
-You can use Markdown here.
-<br><br>
-<button id="saveproject">Save</button>
+
+<%= form_for :team do |form| %>
+	<h2>Basic Info</h2>
+
+	<p>
+		<%= form.label :name, "Project name" %>
+		<%= form.text_field :name, placeholder: "Industry Revolutionizer", required: true, maxlength: 25 %>
+	</p>
+
+	<p>
+		<%= form.label :short_description, "Short description" %>
+		<%= form.text_field :short_description, placeholder: "Our project revolutionizes the industry industry by creating industries.", required: true, maxlength: 75 %>
+	</p>
+
+	<h2>Extra Info</h2>
+
+	<p>
+		<%= form.label :project_description, "Detailed description (Markdown-enabled)" %>
+		<%= form.text_area :project_description, cols: 40, rows: 10 %>
+	</p>
+
+	<p>
+		<%= form.label :youtube_url, "YouTube URL" %>
+		<%= form.text_field :youtube_url, placeholder: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", type: "url" %>
+	</p>
+
+	<p>
+		<%= form.label :download_url, "Download link" %>
+		<%= form.text_field :download_url, placeholder: "http://awesometeam.github.io/ourproject/download", type: "url" %>
+	</p>
+
+	<p>
+		<%= form.label :website_url, "Website URL" %>
+		<%= form.text_field :website_url, placeholder: "http://awesometeam.github.io/ourproject", type: "url" %>
+	</p>
+
+	<p>
+		<%= form.submit %>
+	</p>
+<% end %>
+
+<h2>Invite Others</h2>
+
+<p>
+	Right now, these people are on your team:
+</p>
+
 <ul>
 	<% @team.users.each do |user| %>
 		<li><%= link_to user.name, user %></li>
 	<% end %>
 </ul>
-<%= link_to "Leave Team", teams_leave_path %> <% if current_user_team.users.count == 1 %>(team will be deleted, you are the last member)<% end %><br><br>
-Team Code: <b><%= @team.code %></b>
+
+<p>
+	You can invite others to be on your team as well using this code:
+</p>
+
+<p>
+	Team Code: <b><%= @team.code %></b>
+</p>
+
+<p>
+	<%= link_to "Leave Team", teams_leave_path %> <% if current_user_team.users.count == 1 %>(team will be deleted, you are the last member)<% end %>
+</p>

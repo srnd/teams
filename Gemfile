@@ -31,6 +31,10 @@ gem 'geoip'
 gem 'redcarpet'
 # admin thing
 gem 'rails_admin'
+# font awesome
+gem 'font-awesome-rails'
+# youtube
+gem 'youtube_addy'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

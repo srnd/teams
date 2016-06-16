@@ -22,6 +22,21 @@ class TeamsController < ApplicationController
 		redirect_to Team.find(params[:id])
 	end
 
+	def user_update
+		if current_user_team
+			team = current_user_team
+			team.update(params.require(:team).permit(:name, :short_description, :project_description, :youtube_url, :download_url, :website_url))
+
+			if team.errors.any?
+				flash[:error] = handle_errors(team.errors.full_messages)
+			else
+				flash[:message] = "Team Updated"
+			end
+
+			redirect_to teams_code_path
+		end
+	end
+
 	def show
 		@team = Team.find(params[:id])
 		@title = @team.name

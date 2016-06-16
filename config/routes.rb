@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   scope 'teams', as: 'teams' do
     get '/code' => 'teams#code'
+    post '/code' => 'teams#user_update'
     get '/join' => 'teams#join'
     post '/join' => 'teams#join_team'
     get '/leave' => 'teams#leave'

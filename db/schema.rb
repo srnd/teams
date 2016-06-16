@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615043436) do
+ActiveRecord::Schema.define(version: 20160616004439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160615043436) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "awards_shown"
+    t.integer  "year"
   end
 
   create_table "events", force: :cascade do |t|
@@ -53,12 +54,27 @@ ActiveRecord::Schema.define(version: 20160615043436) do
     t.string   "region_webname", limit: 255
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string   "text"
+    t.string   "thumbnail_url"
+    t.text     "description"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "tags_teams", id: false, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "team_id"
+  end
+
+  add_index "tags_teams", ["tag_id"], name: "index_tags_teams_on_tag_id", using: :btree
+  add_index "tags_teams", ["team_id"], name: "index_tags_teams_on_team_id", using: :btree
+
   create_table "teams", force: :cascade do |t|
     t.string   "name",                limit: 255
     t.string   "code",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "project",             limit: 255
     t.integer  "event_id"
     t.integer  "batch_id"
     t.string   "slack_token",         limit: 255
@@ -67,6 +83,10 @@ ActiveRecord::Schema.define(version: 20160615043436) do
     t.text     "project_description"
     t.string   "project_url"
     t.string   "team_photo_url"
+    t.string   "youtube_url"
+    t.string   "short_description"
+    t.string   "download_url"
+    t.string   "website_url"
   end
 
   create_table "teams_users", id: false, force: :cascade do |t|

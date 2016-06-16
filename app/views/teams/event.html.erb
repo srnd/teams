@@ -7,9 +7,6 @@
   <% @teams.order("id ASC").each do |t| %>
     <li>
       <%= link_to t.name, t %>
-      <ul>
-        <li>Project: <%= t.project || "nothing" %></li>
-      </ul>
     </li>
   <% end %>
 </ul>
