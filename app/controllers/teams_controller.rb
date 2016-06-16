@@ -25,15 +25,15 @@ class TeamsController < ApplicationController
 	def user_update
 		if current_user_team
 			team = current_user_team
-			team.update(params.require(:team).permit(:name, :short_description, :project_description, :youtube_url, :download_url, :website_url))
+			team.update(params.require(:team).permit(:name, :short_description, :project_description, :youtube_url, :download_url, :website_url, tag_ids: []))
 
 			if team.errors.any?
 				flash[:error] = handle_errors(team.errors.full_messages)
 			else
-				flash[:message] = "Team Updated"
+				flash[:message] = "Team updated"
 			end
 
-			redirect_to teams_code_path
+			redirect_to teams_mine_path
 		end
 	end
 
@@ -81,12 +81,12 @@ class TeamsController < ApplicationController
 		if current_user_team
 			redirect_with_https root_path
 		end
-		params.require(:team).permit(:name, :event_id)
+		params.require(:team).permit(:name, :short_description, :event_id)
 		if Event.where(:id => params[:team][:event_id]).first.is_a? Event
-			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id], :batch_id => current_batch.id)
+			team = Team.create(:name => params[:team][:name], :code => SecureRandom.urlsafe_base64(5), :event_id => params[:team][:event_id], :short_description => params[:team][:short_description], :batch_id => current_batch.id)
 			if team.valid?
 				team.users << current_user
-				redirect_with_https teams_code_path
+				redirect_with_https teams_mine_path
 			else
 				flash[:error] = handle_errors(team.errors.full_messages)
 				redirect_with_https new_team_path
@@ -126,9 +126,9 @@ class TeamsController < ApplicationController
 	end
 
 	def save_project
-		params.require(:project).permit(:name, :description)
-		current_user_team.update(:project => params[:project][:name], :project_description => params[:project][:description])
-		render json: api_success
+		# params.require(:project).permit(:name, :description)
+		# current_user_team.update(:project => params[:project][:name], :project_description => params[:project][:description])
+		# render json: api_success
 	end
 
 	private

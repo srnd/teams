@@ -53,6 +53,14 @@
 				<% end %>
 			</div>
 
+			<h2>Tags</h2>
+
+			<div class="team-tags">
+				<% @team.tags.each do |tag| %>
+					<%= render partial: "/tag", locals: { p_tag: tag } %>
+				<% end %>
+			</div>
+
 			<h2>Awards</h2>
 
 			<div class="team-awards">

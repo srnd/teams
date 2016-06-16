@@ -1,13 +1,49 @@
-<h1>Welcome!</h1>
+<%= form_for_hash @filter, :filter, root_path, { :method => "get" } do |form| %>
+  <div class="section group">
+  	<div class="col span_2_of_3">
+    	<h2>See teams from...</h2>
 
-Welcome to CodeDay Teams! Register your team here and use your CodeDay Teams account to participate
-in activites throughout CodeDay.
-<br><br>
-When you have a team and an idea, you can get to building it! You don't need a name for it, but you
-can set one on your team page if you do.
-<br><br>
-Use CodeDay Teams to track your progress with OAuth integrations such as Google Drive and Slack. Once
-you're done with your project and presentations are over, you'll be judged.
+      <p>
+        CodeDay
+        <%= form.collection_select(:event_id, Event.all, :id, :city) %>
+        <%= form.collection_select(:batch_id, Batch.all, :id, :name) %>
+      </p>
+
+      <p>
+        <%= form.submit "Filter" %>
+      </p>
+  	</div>
+  	<div class="col span_1_of_3">
+    	<!-- <h2>Tags</h2>
+
+      <p class="label-no-full-width">
+        <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :text) do |tag| %>
+          <%= tag.check_box %><%= tag.label %>
+          <br>
+        <% end %>
+      </p> -->
+  	</div>
+  </div>
+<% end %>
+
+<div class="section group">
+  <% @teams.each do |team| %>
+    <div class="col span_1_of_3 team-image" style="background-image: url(<%= team.team_photo_url %>)"></div>
+    <div class="col span_2_of_3">
+      <h2><%= link_to team.name, team %></h2>
+
+      <p class="label-no-full-width">
+        <%= team.short_description %>
+      </p>
+
+      <p>
+        <% team.tags.each do |tag| %>
+          <%= render partial: "/tag", locals: { p_tag: tag } %>
+        <% end %>
+      </p>
+    </div>
+  <% end %>
+</div>
 
 <!-- <div class="hero">
   <h1 style="margin-top: 0">Register Your Team</h1>

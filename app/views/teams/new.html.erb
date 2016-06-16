@@ -1,17 +1,24 @@
 <h1>Create a Team</h1>
+
 <%= form_for :team, url: teams_path do |f| %>
 	<p>
-		<%= f.label :name %><br>
-		<%= f.text_field :name %>
+		<%= f.label :name, "Project name" %>
+		<%= f.text_field :name, required: true, maxlength: 25, placeholder: "Best Project Ever" %>
 	</p>
 
 	<p>
-		<%= f.label :event %><br>
-		<%= collection_select(:team, :event_id, Event.all, :id, :city, {:prompt => true}) %>
+		<%= f.label :short_description, "Short project description" %>
+		<%= f.text_field :short_description, required: true, maxlength: 75, placeholder: "Allows for doing things exponentially faster." %>
+	</p>
+
+	<p>
+		<%= f.label :event %>
+		<%= collection_select(:team, :event_id, Event.all, :id, :city, { :prompt => true }, required: true) %>
 	</p>
 
 	<p>
 		<%= f.submit "Create" %>
 	</p>
 <% end %>
+
 <%= link_to "Join a team instead", teams_join_path %>

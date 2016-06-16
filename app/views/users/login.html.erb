@@ -9,15 +9,18 @@
     <% end %>
     <tr>
       <td>
+        <a href="<%= @s5_sso_url %>"><s5-button>Log in with s5</s5-button></a>
+      </td>
+      <td>
         <h3 style="text-align: center">Have a legacy account?</h3>
         <%= form_for :user do |u| %>
         <p>
-          <%= u.label :username %><br>
+          <%= u.label :username %>
           <%= u.text_field :username %>
         </p>
 
         <p>
-          <%= u.label :password %><br>
+          <%= u.label :password %>
           <%= u.text_field :password, :type => "password" %>
         </p>
 
@@ -25,9 +28,6 @@
           <%= u.submit "Log in" %>
         </p>
         <% end %>
-      </td>
-      <td>
-        <a href="<%= @s5_sso_url %>"><s5-button>Log in with s5</s5-button></a>
       </td>
     </tr>
   </table>

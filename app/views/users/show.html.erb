@@ -1,12 +1,23 @@
 <h1><%= @user.name %> (<%= @user.username %>)</h1>
+
 <% if @user.s5_username %>
-	s5 username: <%= link_to @user.s5_username, "https://s5.studentrnd.org/user/#{@user.s5_username}" %>
-	<br>
+	<p>
+		s5 username: <%= link_to @user.s5_username, "https://s5.studentrnd.org/user/#{@user.s5_username}" %>
+	</p>
 <% end %>
-<% if @user.current_team %>
-	Team: <%= link_to @user.current_team.name, @user.current_team %>
-	<br>
-	Their team is working on <%= @user.current_team.project || "nothing" %>.
-<% else %>
-	Team: (none)
-<% end %>
+
+<p>
+	This user has been on these teams throughout all CodeDays:
+
+	<% if @user.teams.count == 0 %>
+		<p>
+			<i>(dust)</i>
+		</p>
+	<% end %>
+
+	<ul>
+		<% @user.teams.each do |team| %>
+			<li><%= link_to team.name, team %></li>
+		<% end %>
+	</ul>
+</p>

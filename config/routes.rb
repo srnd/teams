@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   get '/hall_of_fame' => 'main#hall_of_fame'
 
   scope 'teams', as: 'teams' do
-    get '/code' => 'teams#code'
-    post '/code' => 'teams#user_update'
+    get '/mine' => 'teams#code'
+    post '/mine' => 'teams#user_update'
     get '/join' => 'teams#join'
     post '/join' => 'teams#join_team'
     get '/leave' => 'teams#leave'

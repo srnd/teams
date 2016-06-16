@@ -1,0 +1,12 @@
+.tag{
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  background: #BBC2FF;
+  color: #6B7AFF;
+  padding: 5px;
+
+  &:before{
+    content: "#";
+  }
+}

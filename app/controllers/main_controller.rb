@@ -3,6 +3,18 @@ class MainController < ApplicationController
 
 	def index
 		@title = "Welcome"
+
+		if params[:filter]
+			@filter = params[:filter].symbolize_keys
+			batch = Batch.find(params[:filter][:batch_id]) || current_batch
+			event = Event.find(params[:filter][:event_id]) || Event.first
+		else
+			@filter = {}
+			batch = current_batch
+			event = Event.first
+		end
+
+		@teams = Team.where(:batch => batch, :event => event)
 	end
 
 	def manual_login
