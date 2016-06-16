@@ -15,7 +15,7 @@
 		<div class="col span_2_of_3">
 			<% if @team.youtube_url && @team.youtube_url != "" %>
 				<div class="team-video">
-					<%= YouTubeAddy.youtube_embed_url(@team.youtube_url, "100%", "").html_safe %>
+					<iframe width="100%" src="https://www.youtube.com/embed/<%= YouTubeAddy.extract_video_id(@team.youtube_url) %>" frameborder="0" allowfullscreen></iframe>
 				</div>
 			<% end %>
 
