@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616004439) do
+ActiveRecord::Schema.define(version: 20160617014056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,10 +48,9 @@ ActiveRecord::Schema.define(version: 20160616004439) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "city",           limit: 255
+    t.string   "city",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "region_webname", limit: 255
   end
 
   create_table "tags", force: :cascade do |t|
@@ -77,8 +76,6 @@ ActiveRecord::Schema.define(version: 20160616004439) do
     t.datetime "updated_at"
     t.integer  "event_id"
     t.integer  "batch_id"
-    t.string   "slack_token",         limit: 255
-    t.string   "slack_webhook_url",   limit: 255
     t.text     "extra"
     t.text     "project_description"
     t.string   "project_url"

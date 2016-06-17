@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   helper_method ([
     :current_user,
     :handle_errors,
-    :ctf_hook,
     :current_batch,
     :current_teams,
     :current_awards,
@@ -47,11 +46,6 @@ class ApplicationController < ActionController::Base
     error = ""
     if messages.is_a? Array then messages.each do |m| error += "#{m}<br>" end end
     return error
-  end
-
-  def ctf_hook(params)
-    params[:secret] = "R9HvxvTn3OuwmrHVpNRx4RmDuPsOKU9ceVqp5pq0nRxOn9J7CqFy8ULpre1Q"
-    return JSON.parse(http_get("ctf.codeday.org", "/teamhook", params))
   end
 
   def current_batch

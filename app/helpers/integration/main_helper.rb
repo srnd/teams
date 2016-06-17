@@ -1,2 +1,0 @@
-module Integration::MainHelper
-end

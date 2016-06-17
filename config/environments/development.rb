@@ -32,6 +32,9 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
+  $s5_token = "qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU"
+  $s5_secret = "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

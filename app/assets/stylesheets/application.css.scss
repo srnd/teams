@@ -1,8 +1,16 @@
-/*
- *= require font-awesome
- *= require_tree .
- *= require_self
- */
+// globals
+@import "globals";
+@import "main";
+@import "teams";
+@import "tags";
+@import "grid";
+
+// admin styles
+@import "admin";
+
+// vendor
+@import "animate";
+@import "sweetalert";
 
 *{
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */

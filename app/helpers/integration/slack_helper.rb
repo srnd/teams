@@ -1,2 +1,0 @@
-module Integration::SlackHelper
-end

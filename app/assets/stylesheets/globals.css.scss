@@ -1,0 +1,54 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Roboto:100,300,400,500);
+$regular-font: "Roboto";
+$haxor-font: "Roboto", "Open Sans";
+
+// orange material
+// $material-primary: #FF5722;
+// $material-primary-light: #FFCCBC;
+// $material-primary-dark: #E64A19;
+//
+// $material-accent-shade: #FF6D00;
+// $material-accent-light: #FF9100;
+
+// blue material
+
+$material-primary: #3949AB;
+$material-primary-light: #9FA8DA;
+$material-primary-dark: #283593;
+
+$material-accent-shade: #536DFE;
+$material-accent-light: #8C9EFF;
+
+$studentrnd-blue: #0343FA;
+$codeday-red: #DD5D5C;
+$codeday-blue: #83BAC6;
+$codeday-orange: #F9A448;
+$codeday-purple: #C3B7D6;
+$codeday-green: #A0D388;
+$codeday-lightgreen: #B5E59C;
+// $codeday-link: #42c2d2;
+// $codeday-link-hover: #12A2C2;
+$codeday-link: $material-accent-shade;
+$codeday-link-hover: $codeday-link;
+$codeday-link-gray: #666; // ITS THE DEVIL
+$codeday-link-nav: #111;
+$codeday-link-nav-hover: #FB481C;
+$page-background: #f5f5f5;
+
+$section-border-color: #DEE8EF;
+
+$content-width: 1024px;
+$navbar-width: $content-width + 100px;
+
+$page-margin: 20px;
+
+@mixin text-background($color, $shadow){
+    @if $shadow{
+        text-shadow: 0px 0px 5px $codeday-blue;
+    }@else{
+        text-shadow: none;
+    }
+    background: $color;
+    color: #fff;
+}
