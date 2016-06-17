@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   get '/oauth/s5' => 'main#s5'
   get '/logout' => 'users#logout'
-  get '/me' => 'users#me'
   get '/hall_of_fame' => 'main#hall_of_fame'
 
   scope 'teams', as: 'teams' do

@@ -28,10 +28,6 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def me
-		redirect_to user_path(current_user)
-	end
-
 	def show
 		@user = User.find(params[:id])
 		@title = @user.name
