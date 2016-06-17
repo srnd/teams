@@ -1,23 +1,27 @@
-<h1><%= @user.name %> (<%= @user.username %>)</h1>
-
-<% if @user.s5_username %>
-	<p>
-		s5 username: <%= link_to @user.s5_username, "https://s5.studentrnd.org/user/#{@user.s5_username}" %>
-	</p>
-<% end %>
-
-<p>
-	This user has been on these teams throughout all CodeDays:
-
-	<% if @user.teams.count == 0 %>
+<!-- This probably isn't the right style of header to use, but it looks nice, so, uh, yeah... -->
+<div class="team-header" style="background-image: url(https://s5.studentrnd.org/photo/<%= @user.s5_username %>_1000.jpg?new)">
+	<div class="team-header-inner animated fadeInUp">
+		<h1><%= @user.name %></h1>
 		<p>
-			<i>(dust)</i>
+			<%= link_to @user.s5_username, "https://s5.studentrnd.org/user/#{@user.s5_username}" %>
 		</p>
-	<% end %>
+	</div>
+</div>
 
-	<ul>
-		<% @user.teams.each do |team| %>
-			<li><%= link_to team.name, team %></li>
+<div class="content-inner">
+	<h2>Teams</h2>
+
+	<p>
+		<% if @user.teams.count == 0 %>
+			<p>
+				<i>(dust)</i>
+			</p>
 		<% end %>
-	</ul>
-</p>
+
+		<ul>
+			<% @user.teams.each do |team| %>
+				<%= render partial: "teams/showcase", :locals => { team: team }%>
+			<% end %>
+		</ul>
+	</p>
+</div>

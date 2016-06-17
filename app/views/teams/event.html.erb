@@ -3,6 +3,7 @@
 <% end %>
 
 <h1>Teams for <%= @event.city %> <%= @batch.name %></h1>
+
 <ul>
   <% @teams.order("id ASC").each do |t| %>
     <li>

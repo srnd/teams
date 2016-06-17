@@ -1,11 +1,23 @@
 <h1>Selecting Team for <%= @award.name %></h1>
+
 <%= form_for :award do |f| %>
   <h2>Select Team for Award</h2>
-  <%= collection_select(:award, :team_id, Team.where(:batch_id => @award.batch_id, :event_id => @award.event_id), :id, :name, {:prompt => true}) %>
+
+  <p>
+    <%= f.collection_select(:team_id, Team.where(:batch_id => @award.batch_id, :event_id => @award.event_id), :id, :name, {:prompt => true}) %>
+  </p>
 
   <h2>Award Notes</h2>
-  <%= @award.description %><br><br>
-  <%= text_area(:award, :notes, cols: 40, rows: 10) %><br><br>
 
-  <button>Update Award</button>
+  <p>
+    <%= @award.description %>
+  </p>
+
+  <p>
+    <%= .ftext_area(:notes, cols: 40, rows: 10) %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
 <% end %>

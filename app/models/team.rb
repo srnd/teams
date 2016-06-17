@@ -11,16 +11,6 @@ class Team < ActiveRecord::Base
 	validates :event_id, :presence => true
 	# validates :slack_webhook_url, :format => {:with => URI.regexp}
 
-	def hook_slack(data = {})
-		if self.slack_webhook_url
-			data[:fallback] ||= "[CodeDay Teams attachment here]"
-			data[:color] ||= "success"
-			data[:fields] ||= []
-
-			http_post("https://hooks.slack.com", URI(self.slack_webhook_url).path, JSON[data])
-		end
-	end
-
 	def team_photo
 		if self.team_photo_url && self.team_photo_url != ""
 			self.team_photo_url
@@ -41,8 +31,7 @@ class Team < ActiveRecord::Base
 		{
 			:id => self.id,
 			:name => self.name,
-			:event => self.event.api_filter,
-			:project => self.project
+			:event => self.event.api_filter
 		}
 	end
 end

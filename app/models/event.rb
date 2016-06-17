@@ -6,7 +6,6 @@ class Event < ActiveRecord::Base
     {
       :id => self.id,
       :city => self.city,
-      :region_webname => self.region_webname,
       :batch => self.batch.api_filter
     }
   end
