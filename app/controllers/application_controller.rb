@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
   helper_method ([
     :current_user,
     :handle_errors,
@@ -12,8 +13,14 @@ class ApplicationController < ActionController::Base
     :api_error,
     :api_success
   ])
+
+  before_filter :init_og_tags
   # before_filter :cloudflare_https
   # before_filter :check_legacy
+
+  def init_og_tags
+    @open_graph = {}
+  end
 
   def current_user
   	if session[:current_user_id]

@@ -41,6 +41,12 @@ class TeamsController < ApplicationController
 		@team = Team.find(params[:id])
 		@title = @team.name
 		@extra_body_class = "full-content-width"
+
+		@open_graph[:title] = @team.name
+		@open_graph[:type] = "website"
+		@open_graph[:url] = team_url(@team)
+		@open_graph[:image] = @team.team_photo
+		@open_graph[:description] = @team.short_description
 	end
 
 	def code
