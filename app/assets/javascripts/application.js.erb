@@ -45,25 +45,6 @@ Loader = (function(){
 }());
 
 (function(){
-	var Tawk_API=Tawk_API||{};
-
-	<% if current_user %>
-		Tawk_API.visitor = {
-			name: "<%= j current_user.name %>",
-			email: "<%= j current_user.email %>"
-		};
-	<% end %>
-
-	Tawk_API.onLoad = function(){
-		$("#tawkchat-iframe-container").prop("data-no-instant", true);
-
-		<% if current_user %>
-			Tawk_API.setAttributes({
-				userid: "<%= current_user.id %>"
-			});
-		<% end %>
-	};
-
 	function ready(){
 		// if($('#saveproject').length){
 		// 	$('#saveproject').off('click');
