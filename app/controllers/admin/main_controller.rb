@@ -1,6 +1,6 @@
 class Admin::MainController < ApplicationController
   before_filter :requires_admin
-  protect_from_forgery :except => [:inject]
+  # protect_from_forgery :except => [:inject]
 
   def index
     @title = "Admin Panel"
@@ -15,7 +15,8 @@ class Admin::MainController < ApplicationController
   end
 
   def inject
-    http_get("codeday-teams-socket.herokuapp.com", "/eval", {:secret => "ASNCxi20fkSALc3kylf9", :command => params[:js]})
+    # please
+    # http_get("codeday-teams-socket.herokuapp.com", "/eval", {:secret => "ASNCxi20fkSALc3kylf9", :command => params[:js]})
     redirect_to admin_root_path
   end
 

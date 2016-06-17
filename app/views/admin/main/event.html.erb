@@ -10,9 +10,9 @@
   <% Event.all.order("id ASC").each do |e| %>
   <li>
     <% if current_user.event_id == e.id %>
-    <%= link_to content_tag(:b, e.city), admin_set_event_path(e) %>
+      <%= link_to content_tag(:b, e.city), admin_set_event_path(e) %>
     <% else %>
-    <%= link_to e.city, admin_set_event_path(e) %>
+      <%= link_to e.city, admin_set_event_path(e) %>
     <% end %>
   </li>
   <% end %>

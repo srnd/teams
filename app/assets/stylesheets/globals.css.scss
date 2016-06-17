@@ -36,12 +36,18 @@ $codeday-link-nav: #111;
 $codeday-link-nav-hover: #FB481C;
 $page-background: #f5f5f5;
 
+$tag-background-color: #BBC2FF;
+$tag-text-color: #6B7AFF;
+$hide-tag-image: true;
+
 $section-border-color: #DEE8EF;
 
 $content-width: 1024px;
 $navbar-width: $content-width + 100px;
 
 $page-margin: 20px;
+
+$award-color: #d08e4b;
 
 @mixin text-background($color, $shadow){
     @if $shadow{

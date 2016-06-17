@@ -83,13 +83,13 @@
 }
 
 .award{
-  color: #d08e4b;
+  color: $award-color;
   font-weight: bold;
   display: inline-block;
   width: 100%;
   height: 50px;
   padding-left: 65px;
-  background: url(<%= asset_path "trophy.svg" %>);
+  background: url(<%= asset_path "awards/trophy.svg" %>);
   background-size: 50px 50px;
   background-repeat: no-repeat;
   background-position: 0px 0px;
@@ -111,7 +111,7 @@
 
 .team-section-right{
   padding-left: 30px;
-  border-left: 1px solid #DEE8EF;
+  border-left: 1px solid $section-border-color;
 }
 
 .label-no-full-width label{

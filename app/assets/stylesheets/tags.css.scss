@@ -2,9 +2,15 @@
   display: inline-block;
   margin-right: 5px;
   margin-bottom: 5px;
-  background: #BBC2FF;
-  color: #6B7AFF;
+  background: $tag-background-color;
+  color: $tag-text-color;
   padding: 5px;
+
+  @if $hide-tag-image{
+    .tag-image{
+      display: none;
+    }
+  }
 
   &:before{
     content: "#";

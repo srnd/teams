@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
   ])
 
   before_filter :init_og_tags
-  # before_filter :cloudflare_https
-  # before_filter :check_legacy
 
   def init_og_tags
     @open_graph = {
@@ -44,6 +42,7 @@ class ApplicationController < ActionController::Base
 
   def api_error(message = "Generic Error")
     {
+      :code => 401,
       :success => false,
       :message => message
     }
@@ -51,36 +50,39 @@ class ApplicationController < ActionController::Base
 
   def api_success(hash = {})
     hash.merge({
+      :code => 200,
       :success => true
     })
   end
 
   def handle_errors(messages)
     error = ""
+    # this is safe. /s
+    # TODO fix this thing, too
     if messages.is_a? Array then messages.each do |m| error += "#{m}<br>" end end
-    return error
+    error
   end
 
   def current_batch
-    return Batch.where(:current => true).first
+    Batch.where(:current => true).first
   end
 
   def current_teams(query = [])
     query[:batch_id] = current_batch.id
-    return Team.where(query)
+    Team.where(query)
   end
 
   def current_user_team
     if current_user
-      return current_user.current_team
+      current_user.current_team
     else
-      return nil
+      nil
     end
   end
 
   def current_awards(query = [])
     query[:batch_id] = current_batch.id
-    return Award.where(query)
+    Award.where(query)
   end
 
   private
