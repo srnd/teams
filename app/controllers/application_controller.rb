@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     @open_graph = {
       :site_name => "CodeDay Teams"
     }
+
+    @twitter_card = {
+      :site => "@StudentRND"
+    }
   end
 
   def current_user

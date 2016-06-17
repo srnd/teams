@@ -47,6 +47,12 @@ class TeamsController < ApplicationController
 		@open_graph[:url] = team_url(@team)
 		@open_graph[:image] = @team.team_photo
 		@open_graph[:description] = "#{@team.short_description} #{@team.tags_as_hashtags}"
+
+		@twitter_card[:card] = "summary_large_image"
+		@twitter_card[:title] = @team.name
+		@twitter_card[:description] = "#{@team.short_description} #{@team.tags_as_hashtags}"
+		@twitter_card[:image] = @team.team_photo
+		@twitter_card["image:alt"] = "A photo of the CodeDay team that created #{@team.name}"
 	end
 
 	def code
