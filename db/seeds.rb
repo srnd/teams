@@ -1,11 +1,16 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Batch.create(:name => "Far Future 2026", :current => true)
 
-Batch.create(:name => "New Batch")
+tags = [
+  "Android",
+  "iOS",
+  "Windows",
+  "macOS",
+  "App",
+  "Game",
+  "VR",
+  "Oculus",
+  "HTC Vive",
+  "Other"
+]
 
-Tag.create(:text => "Good Tag")
+Tag.create(tags.map{ |t| { :text => t } })
