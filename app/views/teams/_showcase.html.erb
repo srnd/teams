@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="col span_2_of_3">
-    <h2><%= link_to team.name, team %> <% if current_user && team.users.include?(current_user) %>(your team!)<% end %></h2>
+    <h2><%= link_to team.name, team %></h2>
 
     <p class="label-no-full-width">
       <%= team.short_description %>
