@@ -1,11 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+android:
+  text: Android
 
-one:
-  text: MyString
-  thumbnail_url: MyString
-  description: MyText
-
-two:
-  text: MyString
-  thumbnail_url: MyString
-  description: MyText
+ios:
+  text: iOS

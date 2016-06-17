@@ -1,9 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+withtags:
+  name: A Good Team
+  code: teamcode1
+  short_description: Our project is good.
 
-one:
-  name: MyString
-  code: MyString
-
-two:
-  name: MyString
-  code: MyString
+toolong:
+  name: This team has a name that is too long and shouldn't validate
+  code: teamcode2
+  short_description: Our project has a name that's too long.

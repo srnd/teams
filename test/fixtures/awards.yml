@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  team_id: 1
-  description: MyText
+topoverall:
+  name: Top Overall
+  description: This team is the best... AROUND!
 
-two:
-  name: MyString
-  team_id: 1
-  description: MyText
+bestapp:
+  name: Best App
+  description: This team had a decently decent app.

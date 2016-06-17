@@ -1,13 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+admin:
+  username: admin
+  admin: true
+  password: hunter2
 
-one:
-  username: MyString
+notadmin:
+  username: attendee
   admin: false
-  password: MyString
-  team_id: 1
-
-two:
-  username: MyString
-  admin: false
-  password: MyString
-  team_id: 1
+  password: hunter3
