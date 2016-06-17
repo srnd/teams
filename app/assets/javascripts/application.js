@@ -79,20 +79,18 @@ Loader = (function(){
 		});
 	}
 
-	$(document).ajaxStart(function(){
-		Loader.show();
-	});
+	// $(document).ajaxStart(function(){
+	// 	Loader.show();
+	// });
+	//
+	// $(document).ajaxSuccess(function(){
+	// 	Loader.done();
+	// 	swal("", "Saved!", "success");
+	// });
+	//
+	// $(document).ajaxError(function(){
+	// 	Loader.error();
+	// });
 
-	$(document).ajaxSuccess(function(){
-		Loader.done();
-		swal("", "Saved!", "success");
-	});
-
-	$(document).ajaxError(function(){
-		Loader.error();
-	});
-
-	$(document).on('ready page:change', ready);
-
-	Turbolinks.enableProgressBar();
+	InstantClick.on('change', ready);
 }())
