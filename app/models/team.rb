@@ -23,7 +23,7 @@ class Team < ActiveRecord::Base
 		hashtags = ""
 
 		self.tags.each do |tag|
-			hashtags += "\##{tag.text} "
+			hashtags += "\##{tag.as_hashtag} "
 		end
 
 		hashtags
