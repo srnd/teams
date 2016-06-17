@@ -19,6 +19,16 @@ class Team < ActiveRecord::Base
 		end
 	end
 
+	def tags_as_hashtags
+		hashtags = ""
+
+		self.tags.each do |tag|
+			hashtags += "\##{tag.text} "
+		end
+
+		hashtags
+	end
+
 	def extra_rendered
 		$markdown.render(self.extra || "")
 	end

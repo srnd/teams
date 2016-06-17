@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
 		@open_graph[:type] = "website"
 		@open_graph[:url] = team_url(@team)
 		@open_graph[:image] = @team.team_photo
-		@open_graph[:description] = @team.short_description
+		@open_graph[:description] = "#{@team.short_description} #{@team.tags_as_hashtags}"
 	end
 
 	def code
