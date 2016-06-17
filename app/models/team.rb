@@ -21,6 +21,14 @@ class Team < ActiveRecord::Base
 		end
 	end
 
+	def team_photo
+		if self.team_photo_url && self.team_photo_url != ""
+			self.team_photo_url
+		else
+			"http://cdn.pcwallart.com/images/gradient-background-wallpaper-4.jpg" # TODO host locally
+		end
+	end
+
 	def extra_rendered
 		$markdown.render(self.extra || "")
 	end

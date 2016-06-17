@@ -8,21 +8,38 @@ class MainController < ApplicationController
 			@filter = params[:filter].symbolize_keys
 			batch = Batch.find(params[:filter][:batch_id]) || current_batch
 			event = Event.find(params[:filter][:event_id]) || Event.first
+
+			if @filter[:tag_ids] && @filter[:tag_ids] != [""]
+				@teams = []
+
+				Team.includes(:tags).where(:batch => batch, :event => event).each do |team|
+					if (@filter[:tag_ids].map { |id| id.to_i }).included_in?(team.tag_ids) then @teams << team end
+				end
+			else
+				@filter[:tag_ids] = []
+				@teams = Team.where(:batch => batch, :event => event)
+			end
 		else
-			@filter = {}
+			@filter = {
+				:tag_ids => [], # damn rails.
+				:batch_id => current_batch.id
+			}
 			batch = current_batch
 			event = Event.first
-		end
 
-		@teams = Team.where(:batch => batch, :event => event)
+			@teams = Team.where(:batch => batch, :event => event)
+		end
+	end
+
+	def filter_json
 	end
 
 	def manual_login
-		redirect_with_https root_path unless Rails.env == "development"
+		redirect_to root_path unless Rails.env == "development"
 		@title = "Manual Login"
 		if params[:user]
 			session[:current_user_id] = User.where(:username => params[:user][:username]).first.id
-			redirect_with_https root_path
+			redirect_to root_path
 		end
 	end
 
@@ -38,13 +55,13 @@ class MainController < ApplicationController
 	end
 
 	def legacy
-		unless current_user && current_user.legacy then redirect_with_https root_path end
+		unless current_user && current_user.legacy then redirect_to root_path end
 		@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=https://#{request.host_with_port}/legacy/oauth"
 		@title = "Migrate to s5"
 	end
 
 	def legacy_oauth
-		unless current_user && current_user.legacy then redirect_with_https root_path end
+		unless current_user && current_user.legacy then redirect_to root_path end
 		begin
 			code = RestClient.get('https://s5.studentrnd.org/api/oauth/exchange', {:params => {:code => params[:code], :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}})
 			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', {:params => {:access_token => code, :secret => "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"}}))
@@ -71,14 +88,14 @@ class MainController < ApplicationController
 													:judge => judge)
 
 			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
-			redirect_with_https root_path
+			redirect_to root_path
 		rescue => e
 			if Rails.env.development?
 				flash[:error] = e.inspect
 			else
 				flash[:error] = "Error linking s5 and Teams account"
 			end
-			redirect_with_https legacy_path
+			redirect_to legacy_path
 		end
 	end
 
@@ -128,12 +145,12 @@ class MainController < ApplicationController
 
 				session[:current_user_id] = user.id
 			end
-			redirect_with_https root_path
+			redirect_to root_path
 		rescue => e
 			if Rails.env.development?
 				flash[:error] = e.inspect
 			end
-			redirect_with_https login_path
+			redirect_to login_path
 		end
 	end
 end

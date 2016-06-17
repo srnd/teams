@@ -2,7 +2,10 @@
 
 <%= render "admin/buttons" %>
 
-The current batch is shown in bold.
+<p>
+  The current batch is shown in bold.
+</p>
+
 <ul>
   <% Batch.all.order("id ASC").each do |b| %>
   <li>

@@ -10,12 +10,11 @@ class ApplicationController < ActionController::Base
     :current_teams,
     :current_awards,
     :current_user_team,
-    :redirect_with_https,
     :api_error,
     :api_success
   ])
-  before_filter :cloudflare_https
-  before_filter :check_legacy
+  # before_filter :cloudflare_https
+  # before_filter :check_legacy
 
   def current_user
   	if session[:current_user_id]
@@ -77,15 +76,6 @@ class ApplicationController < ActionController::Base
     return Award.where(query)
   end
 
-  def redirect_with_https(path)
-    redirect_to path # cloudflare will handle it
-    # if Rails.env.production?
-    #   redirect_to path, :protocol => "https://"
-    # else
-    #   redirect_to path
-    # end
-  end
-
   private
     def check_legacy
       if current_user && current_user.legacy
@@ -93,14 +83,5 @@ class ApplicationController < ActionController::Base
           redirect_to legacy_path
         end
       end
-    end
-
-    def cloudflare_https
-      # if Rails.env.production?
-      #   visitor = JSON.parse(request.headers["CF-Visitor"])
-      #   if visitor["scheme"] == "http"
-      #     redirect_to :protocol => "https://"
-      #   end
-      # end
     end
 end

@@ -2,7 +2,10 @@
 
 <%= render "admin/buttons" %>
 
-Choose which CodeDay you would like to manage.
+<p>
+  Choose which CodeDay you would like to manage.
+</p>
+
 <ul>
   <% Event.all.order("id ASC").each do |e| %>
   <li>

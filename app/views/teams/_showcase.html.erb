@@ -1,0 +1,22 @@
+<div class="section group">
+  <div class="col span_1_of_3 team-image" style="background-image: url(<%= team.team_photo %>)">
+    <div class="small-team-images">
+      <% team.users.each do |member| %>
+        <div class="team-member-small" title="<%= member.name %>" style="background-image: url(https://s5.studentrnd.org/photo/<%= member.s5_username %>_128.jpg?new)"></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col span_2_of_3">
+    <h2><%= link_to team.name, team %> <% if current_user && team.users.include?(current_user) %>(your team!)<% end %></h2>
+
+    <p class="label-no-full-width">
+      <%= team.short_description %>
+    </p>
+
+    <p>
+      <% team.tags.each do |tag| %>
+        <%= render partial: "/tag", locals: { p_tag: tag } %>
+      <% end %>
+    </p>
+  </div>
+</div>

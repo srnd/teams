@@ -14,61 +14,25 @@
       </p>
   	</div>
   	<div class="col span_1_of_3">
-    	<!-- <h2>Tags</h2>
+    	<h2>Tags</h2>
 
       <p class="label-no-full-width">
-        <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :text) do |tag| %>
-          <%= tag.check_box %><%= tag.label %>
+        <% # HACK: rails hates us. %>
+        <% Tag.all.each do |t| %>
+          <%= check_box_tag "filter[tag_ids][]", t.id, @filter[:tag_ids].include?(t.id.to_s), :id => "tag_#{t.id}" %><%= label_tag "tag_#{t.id}", t.text %>
           <br>
         <% end %>
-      </p> -->
+      </p>
   	</div>
   </div>
 <% end %>
 
-<div class="section group">
-  <% @teams.each do |team| %>
-    <div class="col span_1_of_3 team-image" style="background-image: url(<%= team.team_photo_url %>)"></div>
-    <div class="col span_2_of_3">
-      <h2><%= link_to team.name, team %></h2>
+<% if @teams.count == 0 %>
+  <p>
+    No teams were found using your filters.
+  </p>
+<% end %>
 
-      <p class="label-no-full-width">
-        <%= team.short_description %>
-      </p>
-
-      <p>
-        <% team.tags.each do |tag| %>
-          <%= render partial: "/tag", locals: { p_tag: tag } %>
-        <% end %>
-      </p>
-    </div>
-  <% end %>
-</div>
-
-<!-- <div class="hero">
-  <h1 style="margin-top: 0">Register Your Team</h1>
-  <div class="hero-image hero-left" style="background-image: url(https://github.com/tjhorner/codeday-assets/blob/gh-pages/03.jpg?raw=true)"></div>
-  <div class="hero-text hero-right">
-    Register your team here and use your CodeDay Teams account to participate in activites throughout CodeDay.
-    Use CodeDay Teams to track your progress with OAuth integrations such as Google Drive and Slack.<br>
-    <a href="/register"></a>
-  </div>
-</div>
-
-<div class="hero">
-  <h1>Build Your Project</h1>
-  <div class="hero-image hero-right" style="background-image: url(https://github.com/tjhorner/codeday-assets/blob/gh-pages/05.jpg?raw=true)"></div>
-  <div class="hero-text hero-left">
-    When you have a team and an idea, you can get to building it! You don't need a name for it, but you can
-    set one on your team page if you do.
-  </div>
-</div>
-
-<div class="hero">
-  <h1>Get Judged</h1>
-  <div class="hero-image hero-left" style="background-image: url(https://github.com/tjhorner/codeday-assets/blob/gh-pages/06.jpg?raw=true)"></div>
-  <div class="hero-text hero-right">
-    Once you're done with your project and presentations are over, you'll be judged. If you win an award
-    then your team will be permanently placed in the Hall of Fame, along with a picture of yourself.
-  </div>
-</div> -->
+<% @teams.each do |team| %>
+  <%= render partial: "teams/showcase", :locals => { team: team } %>
+<% end %>

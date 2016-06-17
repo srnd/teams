@@ -5,11 +5,11 @@ class UsersController < ApplicationController
 			session[:app_intent] = params[:appid]
 			if current_user
 				token = Token.token_for(@application, current_user)
-				redirect_with_https "#{@application.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
+				redirect_to "#{@application.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
 			end
 			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=https://#{request.host_with_port}/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
 		else
-			if current_user then redirect_with_https root_path end
+			if current_user then redirect_to root_path end
 			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=https://#{request.host_with_port}/oauth/s5"
 			session[:app_intent] = nil
 			@application = nil
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 	end
 
 	def me
-		redirect_with_https user_path(current_user)
+		redirect_to user_path(current_user)
 	end
 
 	def show
@@ -39,20 +39,20 @@ class UsersController < ApplicationController
 
 	def logout
 		session[:current_user_id] = nil
-		redirect_with_https root_path
+		redirect_to root_path
 	end
 
 	def register
-		redirect_with_https login_path
+		redirect_to login_path
 		# UNCOMMENT TO RE-ENABLE REGISTRATION
 
-		# if current_user then redirect_with_https root_path; return end
+		# if current_user then redirect_to root_path; return end
 		# if params[:appid]
 		# 	@application = Application.where(:appid => params[:appid]).first || nil
 		# 	session[:app_intent] = params[:appid]
 		# 	@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
 		# else
-		# 	if current_user then redirect_with_https root_path end
+		# 	if current_user then redirect_to root_path end
 		# 	@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=http://teams.codeday.org/oauth/s5"
 		# 	session[:app_intent] = nil
 		# 	@application = nil
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 	end
 
 	def post_register
-		redirect_with_https login_path
+		redirect_to login_path
 		# UNCOMMENT TO RE-ENABLE REGISTRATION
 
 		# @title = "Register"
@@ -74,9 +74,9 @@ class UsersController < ApplicationController
 		# 			app = Application.where(:appid => session[:app_intent]).first || nil
 		# 			token = Token.token_for(app, user)
 		# 			session[:app_intent] = nil
-		# 			redirect_with_https "#{app.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
+		# 			redirect_to "#{app.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
 		# 		else
-		# 			redirect_with_https root_path
+		# 			redirect_to root_path
 		# 		end
 		# 	else
 		# 		flash.now[:error] = handle_errors(user.errors.full_messages)
@@ -98,9 +98,9 @@ class UsersController < ApplicationController
 					app = Application.where(:appid => session[:app_intent]).first || nil
 					token = Token.token_for(app, user)
 					session[:app_intent] = nil
-					redirect_with_https "#{app.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
+					redirect_to "#{app.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
 				else
-					redirect_with_https root_path
+					redirect_to root_path
 				end
 			else
 				flash.now[:error] = "Invalid password"

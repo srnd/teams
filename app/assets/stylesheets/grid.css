@@ -25,16 +25,16 @@
 
 /*  GRID OF FOUR  */
 .span_4_of_4 {
- width: 100%;
+	width: 100%;
 }
 .span_3_of_4 {
- width: 74.6%;
+	width: 74.25%;
 }
 .span_2_of_4 {
- width: 49.2%;
+	width: 48.5%;
 }
 .span_1_of_4 {
- width: 23.8%;
+	width: 22.75%;
 }
 /*  GRID OF FIVE  */
 .span_5_of_5 {

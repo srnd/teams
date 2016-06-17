@@ -2,6 +2,7 @@ class Award < ActiveRecord::Base
   belongs_to :team
   belongs_to :event
   belongs_to :batch
+  validates_presence_of :name
 
   def api_filter
     {

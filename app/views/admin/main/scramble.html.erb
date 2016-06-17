@@ -2,10 +2,15 @@
 
 <%= render "admin/buttons" %>
 
-The fancy-dancy list of scrambled team names available in your choice of a list or JavaScript array.
+<p>
+  The fancy-dancy list of scrambled team names available in your choice of a
+  list or JavaScript array.
+</p>
+
 <ul>
   <% @teams.each do |t| %>
     <li><%= link_to t.name, t %></li>
   <% end %>
 </ul>
+
 <code><%= @names.to_json %></code>

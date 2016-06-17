@@ -1,5 +1,11 @@
-<h1>Judge Panel</h1>
-<h2>Select Awards for <%= current_user.event.city %> <%= current_batch.name %></h2>
+<h1>Judging</h1>
+
+<h2>Awards for <%= current_user.event.city %> <%= current_batch.name %></h2>
+
+<p>
+  <%= link_to "New Award", new_judge_award_path %>
+</p>
+
 <ul>
   <% current_awards(:event_id => current_user.event_id).order("id ASC").each do |a| %>
     <li>

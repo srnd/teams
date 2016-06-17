@@ -1,0 +1,17 @@
+<h2>Create Award for <%= current_user.event.city %> <%= current_batch.name %></h2>
+
+<%= form_for :award, url: judge_awards_path do |f| %>
+  <p>
+    <%= f.label :name, "Award name" %>
+    <%= f.text_field :name, required: true, placeholder: "Gold Star" %>
+  </p>
+
+  <p>
+    <%= f.label :description, "Award description" %>
+    <%= f.text_field :description, required: true, placeholder: "A gold star for your efforts." %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
