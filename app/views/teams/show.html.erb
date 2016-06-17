@@ -80,13 +80,13 @@
 			<div class="team-links">
 				<% if @team.download_url && @team.download_url != "" %>
 					<p>
-						<%= fa_icon "cloud-download" %> <%= link_to "Download", @team.download_url %>
+						<%= fa_icon "cloud-download" %> <%= link_to "Download", @team.download_url, :target => "_blank" %>
 					</p>
 				<% end %>
 
 				<% if @team.website_url && @team.website_url != "" %>
 					<p>
-						<%= fa_icon "globe" %> <%= link_to "Website", @team.website_url %>
+						<%= fa_icon "globe" %> <%= link_to "Website", @team.website_url, :target => "_blank" %>
 					</p>
 				<% end %>
 			</div>
