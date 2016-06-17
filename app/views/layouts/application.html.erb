@@ -89,7 +89,7 @@
 
 		<% if current_user %>
 			Tawk_API.setAttributes({
-				userid: "<%= j current_user.id %>"
+				userid: "<%= current_user.id %>"
 			});
 		<% end %>
 	};
