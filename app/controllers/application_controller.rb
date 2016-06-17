@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
   # before_filter :check_legacy
 
   def init_og_tags
-    @open_graph = {}
+    @open_graph = {
+      :site_name => "CodeDay Teams"
+    }
   end
 
   def current_user
