@@ -26,5 +26,10 @@ Rails.application.configure do
   $s5_token = ENV["S5_TOKEN"]
   $s5_secret = ENV["S5_SECRET"]
 
+  $clear_token = ENV["CLEAR_TOKEN"]
+  $clear_secret = ENV["CLEAR_SECRET"]
+
+  $s5_judge_invite = ENV["S5_JUDGE_INVITE"]
+
   config.active_record.dump_schema_after_migration = false
 end
