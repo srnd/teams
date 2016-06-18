@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def regions_volunteered_for
+		grants = $clear.get_events_volunteered_for(self.username)
+		Event.where(:clear_id => grants.map{ |grant| grant["region"]["id"] })
+	end
+
 	def generate_salt
 		if self.salt == nil
 			random_string = SecureRandom.urlsafe_base64(8)

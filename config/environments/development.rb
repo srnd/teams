@@ -18,4 +18,7 @@ Rails.application.configure do
 
   $s5_token = "qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU"
   $s5_secret = "4XE0nF3JiyK1HZlGGBNFqIMAjUH766Tl"
+
+  $clear_token = "eoGhYXhMtseFNLLiEEJ9CNe5QYo5kYNN"
+  $clear_secret = "Srh9SmXchi7RVVT6iIny8RySr7Gidbt1"
 end
