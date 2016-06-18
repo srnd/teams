@@ -3,13 +3,14 @@
 <%= render "admin/buttons" %>
 
 <p>
-  Choose which CodeDay you would like to manage.
+  Choose which CodeDay you would like to manage. This will also sync with Clear
+  in the future (and you probably won't have access to this anymore).
 </p>
 
 <ul>
   <% Event.all.order("id ASC").each do |e| %>
   <li>
-    <% if current_user.event_id == e.id %>
+    <% if current_user.event == e %>
       <%= link_to content_tag(:b, e.city), admin_set_event_path(e) %>
     <% else %>
       <%= link_to e.city, admin_set_event_path(e) %>
