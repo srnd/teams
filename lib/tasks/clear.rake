@@ -16,7 +16,7 @@ namespace :clear do
     end
 
     # update the regions and add them to current batch
-    
+
     # NOTE: the `Event` model represents a region, I'm using it for backwards
     # compatability with old views/controllers, we will eventually update it
     # when it's time
@@ -39,10 +39,25 @@ namespace :clear do
         })
       end
     end
+
+    puts "Done."
   end
 
   desc "Checks the permissions of volunteer users to make sure that they still have access to the event."
   task check_permissions: :environment do
+    # this does NOT check every single user. maybe add an endpoint to clear that
+    # gets volunteers by event, and not the other way around for this?
+    users = User.where(:volunteer => true)
 
+    users.each do |user|
+      puts "Checking #{user.username}"
+      grants = $clear.get_events_volunteered_for(user.username)
+      unless grants[0]["region"]["id"] == user.event.clear_id
+        puts "User no longer has access to event, revoking volunteer access"
+        user.update(:volunteer => false, :event => nil)
+      end
+    end
+
+    puts "Done."
   end
 end

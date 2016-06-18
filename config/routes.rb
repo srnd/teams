@@ -47,6 +47,13 @@ Rails.application.routes.draw do
     post '/awards/:id' => 'awards#update'
   end
 
+  namespace :volunteer do
+    root 'main#index'
+    resources :awards
+    resources :teams
+    post '/awards/:id' => 'awards#update'
+  end
+
   namespace :admin do
     root 'main#index'
     get '/set_batch/:id' => 'main#set_batch', as: 'set_batch'

@@ -1,0 +1,50 @@
+<h2>Edit Team "<%= @team.name %>"</h2>
+
+<%= form_for :team, method: "patch", url: volunteer_team_path(@team) do |form| %>
+	<h2>Basic Info</h2>
+
+	<p>
+		<%= form.label :name, "Project name" %>
+		<%= form.text_field :name, placeholder: "Industry Revolutionizer", required: true, maxlength: 25 %>
+	</p>
+
+	<p>
+		<%= form.label :short_description, "Short description" %>
+		<%= form.text_field :short_description, placeholder: "Our project revolutionizes the industry industry by creating industries.", required: true, maxlength: 75 %>
+	</p>
+
+	<h2>Extra Info</h2>
+
+	<h3>Tags</h3>
+
+	<p class="label-no-full-width">
+		<%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :text) do |tag| %>
+			<%= tag.check_box %><%= tag.label %>
+			<br>
+		<% end %>
+	</p>
+
+	<p>
+		<%= form.label :project_description, "Detailed description (Markdown-enabled)" %>
+		<%= form.text_area :project_description, cols: 40, rows: 10 %>
+	</p>
+
+	<p>
+		<%= form.label :youtube_url, "YouTube URL" %>
+		<%= form.text_field :youtube_url, placeholder: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", type: "url" %>
+	</p>
+
+	<p>
+		<%= form.label :download_url, "Download link" %>
+		<%= form.text_field :download_url, placeholder: "http://awesometeam.github.io/ourproject/download", type: "url" %>
+	</p>
+
+	<p>
+		<%= form.label :website_url, "Website URL" %>
+		<%= form.text_field :website_url, placeholder: "http://awesometeam.github.io/ourproject", type: "url" %>
+	</p>
+
+	<p>
+		<%= form.submit %>
+	</p>
+<% end %>

@@ -21,4 +21,6 @@ Rails.application.configure do
 
   $clear_token = "eoGhYXhMtseFNLLiEEJ9CNe5QYo5kYNN"
   $clear_secret = "Srh9SmXchi7RVVT6iIny8RySr7Gidbt1"
+
+  $s5_judge_invite = "http://s5.studentrnd.org/invite/k4gE68XcfuXfymyadrgdgKkfxGV8fRPC"
 end

@@ -1,0 +1,10 @@
+<h1>Volunteer</h1>
+
+<p>
+  Thanks for being a volunteer for CodeDay <%= current_user.event.city %>!
+  You can do these things:
+</p>
+
+<p>
+  <%= link_to "View/edit teams for your event", volunteer_teams_path %>
+</p>

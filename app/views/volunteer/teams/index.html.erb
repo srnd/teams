@@ -1,0 +1,41 @@
+<h1>Teams</h1>
+
+<p>
+  Here are the teams at your event. From here, you can edit them, delete them,
+  or add a team photo for one.
+</p>
+
+<table>
+  <tr>
+    <th>
+      Name
+    </th>
+    <th>
+      Team Code
+    </th>
+    <th>
+      Users
+    </th>
+    <th>
+      Actions
+    </th>
+  </tr>
+  <% @teams.each do |team| %>
+    <tr>
+      <td>
+        <%= team.name %>
+      </td>
+      <td>
+        <%= team.code %>
+      </td>
+      <td>
+        <% team.users.each do |user| %>
+          <%= link_to user.name, user %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_volunteer_team_path(team) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -45,7 +45,7 @@ class MainController < ApplicationController
 		params.require(:secret)
 
 		app = Application.where(:secret => params[:secret])
-		
+
 		if app.exists?
 			app = app.first
 			render json: api_success({ :token => Token.exchange(app, params[:access_token]) })
@@ -66,17 +66,28 @@ class MainController < ApplicationController
 			code = RestClient.get('https://s5.studentrnd.org/api/oauth/exchange', { :params => { :code => params[:code], :secret => $s5_secret }})
 			s5_data = JSON.parse(RestClient.get('https://s5.studentrnd.org/api/user/me', { :params => { :access_token => code, :secret => $s5_secret }}))
 			admin_groups = [2, 3]
+
 			admin = false
 			judge = false
+
 			if s5_data["is_admin"]
+				# give judge/admin access if s5 admin
 				admin = true
 				judge = true
 			else
+				# just check
 				s5_data["groups"].each do |g|
 					if admin_groups.include? g["id"]
 						admin = true
 					end
 				end
+			end
+
+			# check if this user volunteers at any events.
+			grants = $clear.get_events_volunteered_for(s5_data["username"])
+			if Event.where(:clear_id => grants[0]["region"]["id"]).exists?
+				event = Event.where(:clear_id => grants[0]["region"]["id"]).first
+				volunteer = true
 			end
 
 			current_user.update(:s5_username => s5_data["username"],
@@ -85,6 +96,8 @@ class MainController < ApplicationController
 													:legacy => false,
 													:name => "#{s5_data['first_name']} #{s5_data['last_name']}",
 													:s5_token => code,
+													:event => event || nil,
+													:volunteer => volunteer || false,
 													:judge => judge)
 
 			flash[:message] = "s5 account (#{s5_data["username"]}) linked"
@@ -122,8 +135,20 @@ class MainController < ApplicationController
 				end
 			end
 
+			# check if this user volunteers at any events.
+			grants = $clear.get_events_volunteered_for(s5_data["username"])
+			if Event.where(:clear_id => grants[0]["region"]["id"]).exists?
+				event = Event.where(:clear_id => grants[0]["region"]["id"]).first
+				volunteer = true
+			end
+
 			if User.where(:username => s5_data["username"]).first
-				User.where(:username => s5_data["username"]).first.update(:admin => admin, :judge => judge)
+				User.where(:username => s5_data["username"]).first.update({
+					:event => event || nil,
+					:volunteer => volunteer || false,
+					:admin => admin,
+					:judge => judge
+				})
 				session[:current_user_id] = User.where(:username => s5_data["username"]).first.id
 			else
 				user = User.create(:username => s5_data["username"],
@@ -132,6 +157,8 @@ class MainController < ApplicationController
 													 :admin => admin,
 													 :s5_username => s5_data["username"],
 													 :s5_token => code,
+													 :event => event || nil,
+													 :volunteer => volunteer || false,
 													 :judge => judge)
 
 				session[:current_user_id] = user.id
