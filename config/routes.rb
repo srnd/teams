@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/mine' => 'teams#code'
     post '/mine' => 'teams#user_update'
     get '/join' => 'teams#join'
+    get '/join/:code' => 'teams#join_link', as: 'join_link'
     post '/join' => 'teams#join_team'
     get '/leave' => 'teams#leave'
     post '/project' => 'teams#save_project'

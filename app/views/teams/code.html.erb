@@ -62,7 +62,11 @@
 </ul>
 
 <p>
-	You can invite others to be on your team as well using this code:
+	You can invite others to be on your team as well by sending them this link:
+</p>
+
+<p>
+	Team Invite URL: <b><%= link_to teams_join_link_url(:code => @team.code), teams_join_link_url(:code => @team.code) %></b>
 </p>
 
 <p>

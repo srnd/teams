@@ -69,11 +69,25 @@ class TeamsController < ApplicationController
 	end
 
 	def join_team
-		if Team.where(:code => params[:team][:code], :batch_id => current_batch.id).first
+		if Team.where(:code => params[:team][:code], :batch => current_batch).exists?
 			team = Team.where(:code => params[:team][:code]).first
 			team.users << current_user
-			# team.hook_slack({:text => "<#{request.protocol}#{request.host_with_port}#{user_path(current_user)}|#{current_user.name}> has joined the team!"})
-			# current_user.update(:team_id => Team.where(:code => params[:team][:code]).first.id)
+			redirect_to root_path
+		else
+			flash[:error] = "Could not find team for #{current_batch.name} with that code!"
+			redirect_to teams_join_path
+		end
+	end
+
+	def join_link
+		if current_user_team
+			flash[:error] = "You already have a team!"
+			redirect_to teams_mine_path
+		end
+
+		if Team.where(:code => params[:code], :batch => current_batch).exists?
+			team = Team.where(:code => params[:team][:code]).first
+			team.users << current_user
 			redirect_to root_path
 		else
 			flash[:error] = "Could not find team for #{current_batch.name} with that code!"
