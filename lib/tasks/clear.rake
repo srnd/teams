@@ -8,10 +8,10 @@ namespace :clear do
       batch = batch.deep_symbolize_keys
       if Batch.where(:clear_id => batch[:id]).exists?
         puts "Updating batch #{batch[:id]}"
-        Batch.where(:clear_id => batch[:id]).first.update(:name => batch[:name], :current => batch[:is_loaded])
+        Batch.where(:clear_id => batch[:id]).first.update(:name => batch[:name], :current => batch[:is_loaded], :starts_at => DateTime.parse(batch[:starts_at]))
       else
         puts "Creating new batch #{batch[:id]}"
-        Batch.create(:name => batch[:name], :clear_id => batch[:id], :current => batch[:is_loaded])
+        Batch.create(:name => batch[:name], :clear_id => batch[:id], :current => batch[:is_loaded], :starts_at => DateTime.parse(batch[:starts_at]))
       end
     end
 

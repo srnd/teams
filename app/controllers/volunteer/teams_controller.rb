@@ -12,7 +12,7 @@ class Volunteer::TeamsController < Volunteer::MainController
 
   def update
     team = Team.where(:event => current_user.event, :batch => current_batch).find(params[:id])
-    team.update(params.require(:team).permit(:name, :short_description, :project_description, :youtube_url, :download_url, :website_url, tag_ids: []))
+    team.update(params.require(:team).permit(:name, :short_description, :project_description, :youtube_url, :download_url, :website_url, :team_photo_url, tag_ids: []))
     redirect_to volunteer_teams_path
   end
 end

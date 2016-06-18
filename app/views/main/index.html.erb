@@ -6,7 +6,7 @@
       <p>
         CodeDay
         <%= form.collection_select(:event_id, Event.all, :id, :city) %>
-        <%= form.collection_select(:batch_id, Batch.all, :id, :name) %>
+        <%= form.collection_select(:batch_id, Batch.all.order("starts_at DESC"), :id, :name) %>
       </p>
 
       <p>

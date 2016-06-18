@@ -44,6 +44,11 @@
 		<%= form.text_field :website_url, placeholder: "http://awesometeam.github.io/ourproject", type: "url" %>
 	</p>
 
+  <p>
+    <%= form.label :team_photo_url, "Team Photo URL" %>
+    <%= form.text_field :team_photo_url, placeholder: "https://i.imgur.com/something.png", type: "url" %>
+  </p>
+
 	<p>
 		<%= form.submit %>
 	</p>

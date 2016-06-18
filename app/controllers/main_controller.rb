@@ -7,7 +7,7 @@ class MainController < ApplicationController
 		if params[:filter]
 			@filter = params[:filter].symbolize_keys
 			batch = Batch.find(params[:filter][:batch_id]) || current_batch
-			event = Event.find(params[:filter][:event_id]) || Event.first
+			event = Event.find(params[:filter][:event_id]) || (current_user_team ? current_user_team.event : Event.first)
 
 			if @filter[:tag_ids] && @filter[:tag_ids] != [""]
 				@teams = []
@@ -22,10 +22,11 @@ class MainController < ApplicationController
 		else
 			@filter = {
 				:tag_ids => [], # damn rails.
-				:batch_id => current_batch.id
+				:batch_id => current_batch.id,
+				:event_id => (current_user_team ? current_user_team.event.id : Event.first.id)
 			}
 			batch = current_batch
-			event = Event.first
+			event = (current_user_team ? current_user_team.event : Event.first)
 
 			@teams = Team.where(:batch => batch, :event => event)
 		end
