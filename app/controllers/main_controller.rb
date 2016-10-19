@@ -169,9 +169,15 @@ class MainController < ApplicationController
 		rescue => e
 			if Rails.env.development?
 				flash[:error] = e.inspect
+			else
+				flash[:error] = "Something very very bad has happened during login. The error has been reported and the CodeDay overlords have been notified."
 			end
 			Raygun.track_exception(e)
 			redirect_to login_path
 		end
+	end
+
+	def intentional_error
+		raise "This is an intentional error"
 	end
 end

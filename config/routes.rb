@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/logout' => 'users#logout'
   get '/hall_of_fame' => 'main#hall_of_fame'
 
+  get '/error' => 'main#intentional_error'
+
   scope 'teams', as: 'teams' do
     get '/mine' => 'teams#code'
     post '/mine' => 'teams#user_update'
