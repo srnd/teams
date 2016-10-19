@@ -109,6 +109,7 @@ class MainController < ApplicationController
 			else
 				flash[:error] = "Error linking s5 and Teams account"
 			end
+			Raygun.track_exception(e)
 			redirect_to legacy_path
 		end
 	end
@@ -169,6 +170,7 @@ class MainController < ApplicationController
 			if Rails.env.development?
 				flash[:error] = e.inspect
 			end
+			Raygun.track_exception(e)
 			redirect_to login_path
 		end
 	end
