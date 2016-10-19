@@ -101,7 +101,7 @@
 		<% end %>
 
 		InstantClick.on('change', function() {
-			Raygun.trackEvent('pageView', { path: location.pathname + location.search });
+			if(Raygun) Raygun.trackEvent('pageView', { path: location.pathname + location.search });
 		});
 	</script>
 	<script data-no-instant>InstantClick.init();</script>
