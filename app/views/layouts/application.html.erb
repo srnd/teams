@@ -77,7 +77,7 @@
 			- <%= link_to "Manual Login", login_manual_path %>
 		<% end %>
 	</footer>
-	<script type="text/javascript">
+	<script type="text/javascript" data-no-instant>
 	  rg4js('apiKey', 'yL1sJRi3GiP36tEKHqiE9Q==');
 	  rg4js('enablePulse', true);
 	  rg4js('enableCrashReporting', false);
@@ -90,6 +90,10 @@
 				email: "<%= j current_user.email %>"
 			});
 		<% end %>
+
+		InstantClick.on('change', function() {
+			Raygun.trackEvent('pageView', { path: location.pathname + location.search });
+		});
 	</script>
 	<script data-no-instant>InstantClick.init();</script>
 </body>
