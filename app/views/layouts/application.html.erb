@@ -84,7 +84,7 @@
 
 		<% if current_user %>
 			rg4js('setUser', {
-				identifier: "<%= j current_user.id %>",
+				identifier: "<%= current_user.id %>",
 				isAnonymous: false,
 				fullName: "<%= j current_user.name %>",
 				email: "<%= j current_user.email %>"
