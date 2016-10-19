@@ -32,7 +32,7 @@ gem 'geoip'
 # markdown rendering
 gem 'redcarpet'
 # admin thing
-gem 'rails_admin', '~> 1.0'
+# gem 'rails_admin', '~> 1.0'
 # font awesome
 gem 'font-awesome-rails'
 # youtube
