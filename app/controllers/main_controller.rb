@@ -139,7 +139,7 @@ class MainController < ApplicationController
 
 			# check if this user volunteers at any events.
 			grants = $clear.get_events_volunteered_for(s5_data["username"])
-			if Event.where(:clear_id => grants[0]["region"]["id"]).exists?
+			if grants[0] && Event.where(:clear_id => grants[0]["region"]["id"]).exists?
 				event = Event.where(:clear_id => grants[0]["region"]["id"]).first
 				volunteer = true
 			end
