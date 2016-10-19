@@ -77,6 +77,20 @@
 			- <%= link_to "Manual Login", login_manual_path %>
 		<% end %>
 	</footer>
+	<script type="text/javascript">
+	  rg4js('apiKey', 'yL1sJRi3GiP36tEKHqiE9Q==');
+	  rg4js('enablePulse', true);
+	  rg4js('enableCrashReporting', false);
+
+		<% if current_user %>
+			rg4js('setUser', {
+				identifier: "<%= j current_user.id %>",
+				isAnonymous: false,
+				fullName: "<%= j current_user.name %>",
+				email: "<%= j current_user.email %>"
+			});
+		<% end %>
+	</script>
 	<script data-no-instant>InstantClick.init();</script>
 </body>
 </html>
