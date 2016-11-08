@@ -34,6 +34,9 @@ class TeamsController < ApplicationController
 			end
 
 			redirect_to teams_mine_path
+		else
+			flash[:error] = "You don't have a team yet!"
+			redirect_to root_path
 		end
 	end
 

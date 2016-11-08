@@ -37,12 +37,14 @@ class Admin::MainController < ApplicationController
   end
 
   def seed_awards
-    awards = ["Top Overall", "Best App", "Best Game", "Special Award 1", "Special Award 2", "0-to-60"]
-    # get all events
-    Event.all.each do |event|
-      # seed the awards
-      awards.each do |award|
-        Award.create(:batch => current_batch, :event_id => event.id, :name => award)
+    if current_user.username == "tjhorner"
+      awards = ["Top Overall", "Best App", "Best Game", "Special Award 1", "Special Award 2", "0-to-60"]
+      # get all events
+      Event.all.each do |event|
+        # seed the awards
+        awards.each do |award|
+          Award.create(:batch => current_batch, :event_id => event.id, :name => award)
+        end
       end
     end
     redirect_to admin_root_path
