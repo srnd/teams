@@ -86,15 +86,15 @@ class TeamsController < ApplicationController
 		if current_user_team
 			flash[:error] = "You already have a team!"
 			redirect_to teams_mine_path
-		end
-
-		if Team.where(:code => params[:code], :batch => current_batch).exists?
-			team = Team.where(:code => params[:team][:code]).first
-			team.users << current_user
-			redirect_to root_path
 		else
-			flash[:error] = "Could not find team for #{current_batch.name} with that code!"
-			redirect_to teams_join_path
+			if Team.where(:code => params[:code], :batch => current_batch).exists?
+				team = Team.where(:code => params[:team][:code]).first
+				team.users << current_user
+				redirect_to root_path
+			else
+				flash[:error] = "Could not find team for #{current_batch.name} with that code!"
+				redirect_to teams_join_path
+			end
 		end
 	end
 
