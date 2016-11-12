@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   scope 'login', as: 'login' do
     get '/' => 'users#login'
+    get '/s5' => 'users#s5_login'
     post '/' => 'users#post_login'
     get '/manual' => 'main#manual_login', as: 'manual'
     post '/manual' => 'main#manual_login'

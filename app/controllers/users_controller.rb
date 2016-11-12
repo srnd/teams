@@ -17,6 +17,24 @@ class UsersController < ApplicationController
 		@title = "Login"
 	end
 
+	def s5_login
+		if params[:appid]
+			@application = Application.where(:appid => params[:appid]).first || nil
+			session[:app_intent] = params[:appid]
+			if current_user
+				token = Token.token_for(@application, current_user)
+				redirect_to "#{@application.oauth_callback}?access_token=#{CGI::escape(token.access_token)}"
+			end
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=https://#{request.host_with_port}/oauth/s5#{CGI::escape("?appid=#{params[:appid]}")}"
+		else
+			if current_user then redirect_to root_path end
+			@s5_sso_url = "https://s5.studentrnd.org/oauth/qgoZfHW1vcb9yZarnAvOeQOyk5uBBzrU?return=https://#{request.host_with_port}/oauth/s5"
+			session[:app_intent] = nil
+			@application = nil
+		end
+		redirect_to @s5_sso_url
+	end
+
 	def api_me
 		params.require(:token)
 		params.require(:secret)
