@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
 			:username => self.username,
 			:name => self.name,
 			:admin => self.admin,
-			:team => self.current_team
+			:team => self.current_team || false
 		}
 	end
 end
