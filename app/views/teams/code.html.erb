@@ -13,6 +13,11 @@
 		<%= form.text_field :short_description, placeholder: "Our project revolutionizes the industry industry by creating industries.", required: true, maxlength: 75 %>
 	</p>
 
+	<p class="label-no-full-width">
+		<%= form.check_box :is_presenting %>
+		<%= form.label :is_presenting, "I'd like to present my project at the end of CodeDay." %>
+	</p>
+
 	<h2>Extra Info</h2>
 
 	<h3>Tags</h3>

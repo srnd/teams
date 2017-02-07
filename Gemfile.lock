@@ -57,6 +57,8 @@ GEM
     haml (4.0.7)
       tilt
     hike (1.2.3)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
@@ -79,6 +81,7 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     nested_form (0.3.2)
     netrc (0.10.2)
     nokogiri (1.6.7.2)
@@ -143,6 +146,10 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (11.2.2)
+    raygun4ruby (1.1.12)
+      httparty (> 0.13.7)
+      json
+      rack
     rdoc (4.2.0)
       json (~> 1.4)
     redcarpet (3.3.4)
@@ -206,7 +213,8 @@ DEPENDENCIES
   rails (= 4.2.6)
   rails-erd
   rails_12factor
-  rails_admin
+  rails_admin (~> 0.8.1)
+  raygun4ruby
   redcarpet
   rest-client
   sass-rails (~> 4.0.3)
@@ -218,4 +226,4 @@ DEPENDENCIES
   youtube_addy
 
 BUNDLED WITH
-   1.10.6
+   1.13.7

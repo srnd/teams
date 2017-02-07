@@ -11,35 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618210137) do
+ActiveRecord::Schema.define(version: 20170207204706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "applications", force: :cascade do |t|
-    t.string   "name",           limit: 255
+    t.string   "name"
     t.integer  "user_id"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "appid",          limit: 255
-    t.string   "secret",         limit: 255
-    t.string   "oauth_callback", limit: 255
+    t.string   "appid"
+    t.string   "secret"
+    t.string   "oauth_callback"
   end
 
   create_table "awards", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name"
     t.integer  "team_id"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "batch_id"
     t.integer  "event_id"
-    t.string   "notes",       limit: 255
+    t.string   "notes"
   end
 
   create_table "batches", force: :cascade do |t|
-    t.string   "name",         limit: 255
+    t.string   "name"
     t.boolean  "current"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160618210137) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "city",       limit: 255
+    t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "clear_id"
@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 20160618210137) do
   add_index "tags_teams", ["team_id"], name: "index_tags_teams_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "code",                limit: 255
+    t.string   "name"
+    t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160618210137) do
     t.string   "short_description"
     t.string   "download_url"
     t.string   "website_url"
+    t.boolean  "is_presenting"
   end
 
   create_table "teams_users", id: false, force: :cascade do |t|
@@ -96,29 +97,29 @@ ActiveRecord::Schema.define(version: 20160618210137) do
   end
 
   create_table "tokens", force: :cascade do |t|
-    t.string   "access_token",   limit: 255
+    t.string   "access_token"
     t.integer  "user_id"
     t.integer  "application_id"
-    t.string   "token_string",   limit: 255
+    t.string   "token_string"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",    limit: 255
+    t.string   "username"
     t.boolean  "admin"
-    t.string   "password",    limit: 255
+    t.string   "password"
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",        limit: 255
-    t.string   "salt",        limit: 255
+    t.string   "name"
+    t.string   "salt"
     t.boolean  "judge"
     t.integer  "event_id"
     t.boolean  "legacy"
-    t.string   "s5_username", limit: 255
-    t.string   "email",       limit: 255
-    t.string   "s5_token",    limit: 255
+    t.string   "s5_username"
+    t.string   "email"
+    t.string   "s5_token"
     t.boolean  "superadmin"
     t.boolean  "volunteer"
   end

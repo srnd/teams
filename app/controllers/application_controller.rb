@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def init_og_tags
     @open_graph = {
-      :site_name => "CodeDay Teams"
+      :site_name => "CodeDay Showcase"
     }
 
     @twitter_card = {

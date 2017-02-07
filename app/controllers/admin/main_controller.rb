@@ -52,7 +52,7 @@ class Admin::MainController < ApplicationController
 
   def scramble
     @title = "Scrambled Teams"
-    @teams = current_teams(:event_id => current_user.event_id).order("RANDOM()")
+    @teams = current_teams(:event_id => current_user.event_id, :is_presenting => true).order("RANDOM()")
     @names = []
     @teams.each do |t|
       @names.push(t.name)

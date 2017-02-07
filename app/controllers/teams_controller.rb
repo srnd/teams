@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
 	def user_update
 		if current_user_team
 			team = current_user_team
-			team.update(params.require(:team).permit(:name, :short_description, :project_description, :youtube_url, :download_url, :website_url, tag_ids: []))
+			team.update(params.require(:team).permit(:name, :is_presenting, :short_description, :project_description, :youtube_url, :download_url, :website_url, tag_ids: []))
 
 			if team.errors.any?
 				flash[:error] = handle_errors(team.errors.full_messages)
