@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 	def register
 		redirect_to login_path
 		# UNCOMMENT TO RE-ENABLE REGISTRATION
-		# read: DON'T UNCOMMENT THIS, WE WILL NEVER RE-ENABLE REGISTRATION.
+		# read as: DON'T UNCOMMENT THIS, WE WILL NEVER RE-ENABLE REGISTRATION.
 
 		# if current_user then redirect_to root_path; return end
 		# if params[:appid]
