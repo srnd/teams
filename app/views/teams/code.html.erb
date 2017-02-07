@@ -74,5 +74,5 @@
 </p>
 
 <p>
-	<%= link_to "Leave Team", teams_leave_path %> <% if current_user_team.users.count == 1 %>(team will be deleted, you are the last member)<% end %>
+	<%= link_to "Leave Team", teams_leave_path, { :"data-no-instant" => true } %> <% if current_user_team.users.count == 1 %>(team will be deleted, you are the last member)<% end %>
 </p>
