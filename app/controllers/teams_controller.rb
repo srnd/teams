@@ -83,17 +83,21 @@ class TeamsController < ApplicationController
 	end
 
 	def join_link
-		if current_user_team
-			flash[:error] = "You already have a team!"
-			redirect_to teams_mine_path
+		unless current_user
+			redirect_to login_s5_path
 		else
-			if Team.where(:code => params[:code], :batch => current_batch).exists?
-				team = Team.where(:code => params[:team][:code]).first
-				team.users << current_user
-				redirect_to root_path
+			if current_user_team
+				flash[:error] = "You already have a team!"
+				redirect_to teams_mine_path
 			else
-				flash[:error] = "Could not find team for #{current_batch.name} with that code!"
-				redirect_to teams_join_path
+				if Team.where(:code => params[:code], :batch => current_batch).exists?
+					team = Team.where(:code => params[:team][:code]).first
+					team.users << current_user
+					redirect_to root_path
+				else
+					flash[:error] = "Could not find team for #{current_batch.name} with that code!"
+					redirect_to teams_join_path
+				end
 			end
 		end
 	end
