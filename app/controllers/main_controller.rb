@@ -3,7 +3,7 @@ class MainController < ApplicationController
 
 	def index
 		@title = "Welcome!"
-		@teams = Team.where.not(:team_photo_url => nil || "", :tags => [ ] || nil).limit(3)
+		@teams = Team.where.not(:team_photo_url => nil || "", :tags => [ ] || nil).sample(3)
 	end
 
 	def filter
