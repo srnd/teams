@@ -2,7 +2,12 @@ class MainController < ApplicationController
 	protect_from_forgery :except => [:slack_hook]
 
 	def index
-		@title = "Welcome"
+		@title = "Welcome!"
+		@teams = Team.where.not(:team_photo_url => nil).limit(3)
+	end
+
+	def filter
+		@title = "Filter Projects"
 
 		if params[:filter]
 			@filter = params[:filter].symbolize_keys

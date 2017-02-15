@@ -1,37 +1,12 @@
-<%= form_for_hash @filter, :filter, root_path, { :method => "get" } do |form| %>
-  <div class="section group">
-  	<div class="col span_2_of_3">
-    	<h2>See projects from...</h2>
+<h1>Welcome to CodeDay Showcase!</h1>
 
-      <p>
-        CodeDay
-        <%= form.collection_select(:event_id, Event.all, :id, :city) %>
-        <%= form.collection_select(:batch_id, Batch.all.order("starts_at DESC"), :id, :name) %>
-      </p>
+<p>
+  Showcase is a website where you can view past CodeDay projects, and post your own!
+</p>
 
-      <p>
-        <%= form.submit "Filter" %>
-      </p>
-  	</div>
-  	<div class="col span_1_of_3">
-    	<h2>Tags</h2>
-
-      <p class="label-no-full-width">
-        <% # HACK: rails hates us. %>
-        <% Tag.all.each do |t| %>
-          <%= check_box_tag "filter[tag_ids][]", t.id, @filter[:tag_ids].include?(t.id.to_s), :id => "tag_#{t.id}" %><%= label_tag "tag_#{t.id}", t.text %>
-          <br>
-        <% end %>
-      </p>
-  	</div>
-  </div>
-<% end %>
-
-<% if @teams.count == 0 %>
-  <p>
-    No projects were found using your filters.
-  </p>
-<% end %>
+<p>
+  Here's a taste of some of the projects that have been made at CodeDay in the past:
+</p>
 
 <% @teams.each do |team| %>
   <%= render partial: "teams/showcase", :locals => { team: team } %>

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/superadmin', as: 'rails_admin'
   root 'main#index'
 
+  get '/filter' => 'main#filter'
   get '/oauth/s5' => 'main#s5'
   get '/logout' => 'users#logout'
   get '/hall_of_fame' => 'main#hall_of_fame'
